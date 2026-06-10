@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
-  base: '/coffeeshopwebApp/',
   plugins: [react()],
+  // base را کاملاً حذف کنید یا خالی بگذارید
+  base: '/',
 })
