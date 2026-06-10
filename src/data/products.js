@@ -117,7 +117,7 @@ export const products = [
     price: 38000,
     ingredients: "شکلات تلخ، کره، تخم مرغ",
     description: "براونی شکلاتی نرم و لذیذ",
-    image: "/images/brownie.png",
+    image: "/images/brownie.webp",
     category: "dessert",
     categoryName: "شیرینی"
   },
