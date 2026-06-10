@@ -165,13 +165,16 @@ function App() {
   };
 
   // تابع دانلود PDF
+// تابع دانلود PDF (نسخه اصلاح شده برای موبایل)
 const downloadPDF = async () => {
   if (cart.length === 0) {
     showNotification("سبد خرید خالی است!", "error");
     return;
   }
 
-  showNotification("در حال آماده‌سازی فاکتور...", "info");
+  showNotification("در حال آماده‌سازی فاکتور... لطفاً صبر کنید", "info");
+
+  await new Promise(resolve => setTimeout(resolve, 100));
 
   const now = new Date();
   const timeString = now.toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' });
@@ -192,69 +195,73 @@ const downloadPDF = async () => {
   };
 
   const element = document.createElement('div');
-  element.style.width = '800px';
-  element.style.padding = '30px';
+  element.style.width = '600px';
+  element.style.padding = '20px';
   element.style.backgroundColor = 'white';
   element.style.direction = 'rtl';
   element.style.fontFamily = 'Vazirmatn, Vazir, system-ui, sans-serif';
+  element.style.position = 'absolute';
+  element.style.left = '-9999px';
+  element.style.top = '-9999px';
+  
   element.innerHTML = `
     <div style="text-align: center; border-bottom: 2px solid #c68642; padding-bottom: 15px; margin-bottom: 25px;">
-      <img src="/images/logo.png" style="width: 180px; margin-bottom: 10px;" />
-      <p style="color: #666; margin: 0; font-size: 16px;">فاکتور خرید</p>
+      <img src="/images/logo.png" style="width: 150px; margin-bottom: 10px;" />
+      <p style="color: #666; margin: 0; font-size: 14px;">فاکتور خرید</p>
     </div>
     
-    <!-- 1. اطلاعات مشتری و پرداخت -->
-    <div style="background: #f5f5f5; padding: 15px; border-radius: 10px; margin-bottom: 25px;">
-      <p style="margin: 8px 0; font-size: 14px;">📅 تاریخ: ${new Date().toLocaleDateString('fa-IR')}</p>
-      <p style="margin: 8px 0; font-size: 14px;">⏰ زمان ثبت: ${timeString}</p>
-      <p style="margin: 8px 0; font-size: 14px;">🧾 شماره سفارش: #${Math.floor(Math.random() * 100000)}</p>
-      <p style="margin: 8px 0; font-size: 14px;">👤 مشتری: ${user?.name || "مهمان عزیز"}</p>
-      <p style="margin: 8px 0; font-size: 14px;">📊 وضعیت سفارش: تکمیل شده ✅</p>
-      <p style="margin: 8px 0; font-size: 14px;">💳 روش پرداخت: نقدی</p>
+    <div style="background: #f5f5f5; padding: 12px; border-radius: 10px; margin-bottom: 25px;">
+      <p style="margin: 6px 0; font-size: 12px;">📅 تاریخ: ${new Date().toLocaleDateString('fa-IR')}</p>
+      <p style="margin: 6px 0; font-size: 12px;">⏰ زمان ثبت: ${timeString}</p>
+      <p style="margin: 6px 0; font-size: 12px;">🧾 شماره سفارش: #${Math.floor(Math.random() * 100000)}</p>
+      <p style="margin: 6px 0; font-size: 12px;">👤 مشتری: ${user?.name || "مهمان عزیز"}</p>
+      <p style="margin: 6px 0; font-size: 12px;">📊 وضعیت سفارش: تکمیل شده ✅</p>
+      <p style="margin: 6px 0; font-size: 12px;">💳 روش پرداخت: نقدی</p>
     </div>
     
-    <!-- 2. جدول محصولات -->
-    <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px;">
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px; font-size: 11px;">
       <thead>
         <tr style="background: #c68642; color: white;">
-          <th style="padding: 10px; text-align: center; font-size: 14px;">نام محصول</th>
-          <th style="padding: 10px; text-align: center; font-size: 14px;">سایز</th>
-          <th style="padding: 10px; text-align: center; font-size: 14px;">تعداد</th>
-          <th style="padding: 10px; text-align: center; font-size: 14px;">قیمت واحد</th>
-          <th style="padding: 10px; text-align: center; font-size: 14px;">مجموع</th>
-          <th style="padding: 10px; text-align: center; font-size: 14px;">افزودنی‌ها</th>
+          <th style="padding: 8px; text-align: center;">نام محصول</th>
+          <th style="padding: 8px; text-align: center;">سایز</th>
+          <th style="padding: 8px; text-align: center;">تعداد</th>
+          <th style="padding: 8px; text-align: center;">قیمت واحد</th>
+          <th style="padding: 8px; text-align: center;">مجموع</th>
         </tr>
       </thead>
       <tbody>
         ${cart.map(item => `
           <tr style="border-bottom: 1px solid #ddd;">
-            <td style="padding: 8px; text-align: center; font-size: 13px;">${item.name}${item.size ? ` (${getSizeName(item.size)})` : ''}${item.isLucky ? ' 🎲' : ''}${item.isCustom ? ' 🎨' : ''}</td>
-            <td style="padding: 8px; text-align: center; font-size: 13px;">${item.size ? getSizeName(item.size) : '-'}</td>
-            <td style="padding: 8px; text-align: center; font-size: 13px;">${item.quantity}</td>
-            <td style="padding: 8px; text-align: center; font-size: 13px;">${item.price.toLocaleString()} تومان</td>
-            <td style="padding: 8px; text-align: center; font-size: 13px;">${(item.price * item.quantity).toLocaleString()} تومان</td>
-            <td style="padding: 8px; text-align: center; font-size: 13px;">${getAddonsText(item.addonsNames)}</td>
+            <td style="padding: 6px; text-align: center;">${item.name}${item.size ? ` (${getSizeName(item.size)})` : ''}${item.isLucky ? ' 🎲' : ''}${item.isCustom ? ' 🎨' : ''}</td>
+            <td style="padding: 6px; text-align: center;">${item.size ? getSizeName(item.size) : '-'}</td>
+            <td style="padding: 6px; text-align: center;">${item.quantity}</td>
+            <td style="padding: 6px; text-align: center;">${item.price.toLocaleString()}</td>
+            <td style="padding: 6px; text-align: center;">${(item.price * item.quantity).toLocaleString()}</td>
           </tr>
         `).join('')}
       </tbody>
     </table>
+     
+    ${cart.some(item => item.addonsNames?.length) ? `
+      <div style="margin-bottom: 15px; font-size: 11px;">
+        <strong>افزودنی‌ها:</strong>
+        ${cart.map(item => item.addonsNames?.length ? `<div>${item.name}: ${item.addonsNames.join(" + ")}</div>` : '').join('')}
+      </div>
+    ` : ''}
     
-    <!-- 3. جمع کل سفارش -->
     <div style="display: flex; justify-content: space-between; border-top: 2px solid #c68642; padding-top: 12px; margin-bottom: 25px;">
-      <span style="font-weight: bold; color: #c68642; font-size: 16px;">مجموع کل:</span>
-      <span style="font-weight: bold; color: #c68642; font-size: 16px;">${totalPrice.toLocaleString()} تومان</span>
+      <span style="font-weight: bold; color: #c68642; font-size: 14px;">مجموع کل:</span>
+      <span style="font-weight: bold; color: #c68642; font-size: 14px;">${totalPrice.toLocaleString()} تومان</span>
     </div>
     
-    <!-- 4. بخش تشکر -->
-    <div style="text-align: center; background: #fef3c7; padding: 12px; border-radius: 10px; margin-bottom: 20px;">
-      <p style="color: #c68642; font-weight: bold; margin: 5px 0; font-size: 14px;">❤️ از خرید شما متشکریم ❤️</p>
-      <p style="color: #666; font-size: 12px; margin: 5px 0;">امیدواریم دوباره شما را در کافه قهوه ببینیم</p>
+    <div style="text-align: center; background: #fef3c7; padding: 10px; border-radius: 10px; margin-bottom: 20px;">
+      <p style="color: #c68642; font-weight: bold; margin: 5px 0; font-size: 12px;">❤️ از خرید شما متشکریم ❤️</p>
+      <p style="color: #666; font-size: 10px; margin: 5px 0;">امیدواریم دوباره شما را در کافه قهوه ببینیم</p>
     </div>
 
-    <!-- 5. فوتر -->
     <div style="text-align: center; margin-top: 25px; padding-top: 15px; border-top: 1px solid #eee;">
-      <p style="color: #999; font-size: 10px;">کافه قهوه - بهترین طعم‌ها در کنار شما</p>
-      <p style="color: #999; font-size: 10px;">${window.location.href}</p>
+      <p style="color: #999; font-size: 9px;">کافه قهوه - بهترین طعم‌ها در کنار شما</p>
+      <p style="color: #999; font-size: 8px;">${window.location.href}</p>
     </div>
   `;
 
@@ -262,29 +269,42 @@ const downloadPDF = async () => {
   
   try {
     const canvas = await html2canvas(element, {
-      scale: 2,
+      scale: 1.5,
       backgroundColor: '#ffffff',
       logging: false,
-      useCORS: true
+      useCORS: true,
+      allowTaint: false,
+      windowWidth: element.scrollWidth
     });
     
     const imgData = canvas.toDataURL('image/png');
-    const pdf = new jsPDF('p', 'mm', 'a4');
-    const imgWidth = 210;
+    const pdf = new jsPDF({
+      unit: 'mm',
+      format: 'a4',
+      orientation: 'portrait'
+    });
+    
+    const imgWidth = 190;
     const imgHeight = (canvas.height * imgWidth) / canvas.width;
     
-    pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+    pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
     pdf.save(`فاکتور-${Date.now()}.pdf`);
     
-    showNotification("فاکتور با موفقیت دانلود شد", "success");
+    setTimeout(() => {
+      showNotification("فاکتور با موفقیت دانلود شد", "success");
+    }, 500);
+    
   } catch (error) {
     console.error("PDF Error:", error);
     showNotification("خطا در ایجاد فاکتور: " + error.message, "error");
   } finally {
-    document.body.removeChild(element);
+    setTimeout(() => {
+      if (document.body.contains(element)) {
+        document.body.removeChild(element);
+      }
+    }, 1000);
   }
 };
-
 
 
   const renderPage = () => {

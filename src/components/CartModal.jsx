@@ -67,10 +67,15 @@ export default function CartModal({
             <span>مجموع:</span>
             <span>{totalPrice.toLocaleString()} تومان</span>
           </div>
-          <button className="cart-checkout" onClick={finalizeOrder}>نهایی کردن سفارش</button>
-          <button className="pdf-btn" onClick={handleDownload}>
-            📄 دانلود فاکتور PDF
-          </button>
+      <button className="cart-checkout" onClick={finalizeOrder}>نهایی کردن سفارش</button>
+      <button 
+        className="pdf-btn"
+        onClick={() => {
+          onDownloadPDF();
+        }}
+      >
+        📄 دانلود فاکتور PDF
+      </button>
         </div>
       </div>
     </div>
