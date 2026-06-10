@@ -312,11 +312,7 @@ const downloadPDF = async () => {
         </button>
       </div>
 
-      {showScrollTop && (
-        <button className="scroll-top-btn" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-          ↑
-        </button>
-      )}
+
 
       {notification.show && (
         <div className="notification-overlay">
