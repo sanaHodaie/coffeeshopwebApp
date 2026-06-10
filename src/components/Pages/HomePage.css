@@ -1,0 +1,43 @@
+.home-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.home-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(198, 134, 66, 0.3);
+}
+
+.home-card:hover {
+  transform: translateY(-10px);
+  border-color: #c68642;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.home-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.home-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  color: #c68642;
+}
+
+@media (max-width: 768px) {
+  .home-content {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1rem;
+  }
+}

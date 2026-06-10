@@ -1,0 +1,172 @@
+.hero-section {
+  text-align: center;
+  margin-bottom: 4rem;
+  padding: 2rem;
+}
+
+.hero-title {
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.hero-title-main {
+  background: linear-gradient(135deg, #5a3a1f 0%, #8b5a2b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-title-accent {
+  background: linear-gradient(135deg, #c68642 0%, #8b4513 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block;
+  font-size: 5rem;
+}
+
+.hero-subtitle {
+  color: #5a3a1f;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  opacity: 0.8;
+}
+
+.dark-mode .hero-subtitle {
+  color: #c4a67a;
+}
+
+/* نوار جستجو */
+.search-bar {
+  max-width: 500px;
+  margin: 0 auto 2rem auto;
+  padding: 0 1rem;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.8rem 1.2rem;
+  border-radius: 2rem;
+  border: 1px solid rgba(198, 134, 66, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+  color: inherit;
+}
+
+.search-input:focus {
+  border-color: #c68642;
+  box-shadow: 0 0 10px rgba(198, 134, 66, 0.3);
+}
+
+/* دکمه‌های دسته‌بندی */
+.category-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.category-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(198, 134, 66, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  color: inherit;
+}
+
+.category-btn:hover {
+  transform: translateY(-2px);
+  border-color: #c68642;
+}
+
+.category-btn.active {
+  background: rgba(198, 134, 66, 0.3);
+  border-color: #c68642;
+  color: #c68642;
+}
+
+.category-icon {
+  font-size: 1.1rem;
+}
+
+/* گرید محصولات */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.no-results {
+  text-align: center;
+  padding: 4rem;
+  font-size: 1.2rem;
+  color: #c68642;
+}
+
+.no-results span {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 1200px) {
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    margin-bottom: 2rem;
+    padding: 1rem;
+  }
+  
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .hero-title-accent {
+    font-size: 2.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 0.85rem;
+  }
+  
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 0 0.5rem;
+  }
+  
+  .category-buttons {
+    gap: 0.5rem;
+  }
+  
+  .category-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .products-grid {
+    gap: 0.8rem;
+  }
+}

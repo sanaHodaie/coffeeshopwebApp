@@ -1,0 +1,380 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+  background: rgba(255, 248, 235, 0.98);
+  backdrop-filter: blur(20px);
+  border-radius: 2rem;
+  padding: 2rem;
+  max-width: 450px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+  animation: slideUp 0.3s ease-out;
+  border: 1px solid rgba(198, 134, 66, 0.5);
+}
+
+.dark-mode .modal-content {
+  background: rgba(45, 26, 17, 0.98);
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #5a3a1f;
+  transition: transform 0.3s ease;
+}
+
+.dark-mode .modal-close {
+  color: #e8d5b7;
+}
+
+.modal-close:hover {
+  transform: scale(1.1);
+}
+
+.modal-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.modal-title {
+  font-size: 1.8rem;
+  color: #5a3a1f;
+  margin-bottom: 0.5rem;
+}
+
+.dark-mode .modal-title {
+  color: #e8d5b7;
+}
+
+/* ========== قیمت با انیمیشن ========== */
+.modal-price-container {
+  margin-bottom: 1rem;
+  min-height: 60px;
+}
+
+.modal-price {
+  font-size: 1.5rem;
+  color: #c68642;
+  font-weight: bold;
+  animation: pricePop 0.4s ease-out;
+}
+
+@keyframes pricePop {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  80% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.price-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(198, 134, 66, 0.1);
+  padding: 8px 16px;
+  border-radius: 2rem;
+  animation: pulse 0.8s ease-in-out infinite;
+}
+
+.price-text {
+  font-size: 1rem;
+  color: #c68642;
+  font-weight: 500;
+}
+
+.dot {
+  font-size: 1.5rem;
+  color: #c68642;
+  animation: dotBlink 1.4s ease-in-out infinite;
+}
+
+.dot:nth-child(1) { animation-delay: 0s; }
+.dot:nth-child(2) { animation-delay: 0.2s; }
+.dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dotBlink {
+  0%, 100% { opacity: 0.2; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-5px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* ========== انتخاب سایز ========== */
+.size-selector {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: rgba(198, 134, 66, 0.08);
+  border-radius: 1rem;
+}
+
+.size-label {
+  display: block;
+  font-size: 0.85rem;
+  color: #5a3a1f;
+  margin-bottom: 0.8rem;
+  font-weight: 500;
+}
+
+.dark-mode .size-label {
+  color: #e8d5b7;
+}
+
+.size-buttons {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.size-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(198, 134, 66, 0.3);
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #5a3a1f;
+}
+
+.dark-mode .size-btn {
+  background: rgba(45, 26, 17, 0.5);
+  color: #e8d5b7;
+}
+
+.size-btn.active {
+  background: linear-gradient(135deg, #c68642, #8b4513);
+  border-color: #c68642;
+  color: white;
+  transform: scale(1.02);
+}
+
+.size-btn:hover {
+  transform: scale(1.02);
+  border-color: #c68642;
+}
+
+.size-price {
+  font-size: 0.65rem;
+  opacity: 0.8;
+}
+
+.size-btn.active .size-price {
+  color: #f5deb3;
+}
+
+/* ========== بقیه استایل‌ها ========== */
+.modal-description {
+  color: #8b6b4d;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.dark-mode .modal-description {
+  color: #c4a67a;
+}
+
+.modal-ingredients {
+  background: rgba(198, 134, 66, 0.1);
+  padding: 1rem;
+  border-radius: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: right;
+}
+
+.modal-ingredients strong {
+  color: #c68642;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.modal-add-btn {
+  background: linear-gradient(135deg, #c68642, #8b4513);
+  border: none;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+.modal-add-btn:hover {
+  transform: scale(1.02);
+  box-shadow: 0 5px 15px rgba(198, 134, 66, 0.4);
+}
+
+.share-buttons {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.share-btn {
+  padding: 0.4rem 0.8rem;
+  border-radius: 2rem;
+  border: none;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  color: white;
+}
+
+.share-btn.whatsapp {
+  background: #25D366;
+}
+
+.share-btn.whatsapp:hover {
+  background: #128C7E;
+  transform: scale(1.05);
+}
+
+.share-btn.telegram {
+  background: #0088cc;
+}
+
+.share-btn.telegram:hover {
+  background: #006699;
+  transform: scale(1.05);
+}
+
+.share-btn.bale {
+  background: #28a745;
+}
+
+.share-btn.bale:hover {
+  background: #1e7e34;
+  transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+
+/* ========== انتخاب افزودنی‌ها ========== */
+.addons-selector {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: rgba(198, 134, 66, 0.08);
+  border-radius: 1rem;
+}
+
+.addons-label {
+  display: block;
+  font-size: 0.85rem;
+  color: #5a3a1f;
+  margin-bottom: 0.8rem;
+  font-weight: 500;
+}
+
+.dark-mode .addons-label {
+  color: #e8d5b7;
+}
+
+.addons-buttons {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.addon-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(198, 134, 66, 0.3);
+  border-radius: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #5a3a1f;
+}
+
+.dark-mode .addon-btn {
+  background: rgba(45, 26, 17, 0.5);
+  color: #e8d5b7;
+}
+
+.addon-btn.active {
+  background: linear-gradient(135deg, #c68642, #8b4513);
+  border-color: #c68642;
+  color: white;
+  transform: scale(1.02);
+}
+
+.addon-btn:hover {
+  transform: scale(1.02);
+  border-color: #c68642;
+}
+
+.addon-emoji {
+  font-size: 1rem;
+}
+
+.addon-name {
+  font-size: 0.75rem;
+}
+
+.addon-price {
+  font-size: 0.65rem;
+  opacity: 0.8;
+}
+
+.addon-btn.active .addon-price {
+  color: #f5deb3;
+}

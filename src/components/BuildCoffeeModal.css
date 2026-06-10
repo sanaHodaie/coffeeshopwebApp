@@ -1,0 +1,332 @@
+.build-modal {
+  background: rgba(255, 248, 235, 0.98);
+  backdrop-filter: blur(20px);
+  border-radius: 2rem;
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+  animation: slideUp 0.3s ease-out;
+  border: 1px solid rgba(198, 134, 66, 0.5);
+}
+
+.dark-mode .build-modal {
+  background: rgba(45, 26, 17, 0.98);
+}
+
+.build-icon {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  animation: bounce 0.5s ease-out;
+}
+
+@keyframes bounce {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.build-title {
+  font-size: 1.5rem;
+  color: #c68642;
+  margin-bottom: 1.5rem;
+}
+
+/* مراحل */
+.build-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.step-number {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(198, 134, 66, 0.2);
+  border: 1px solid rgba(198, 134, 66, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #c68642;
+}
+
+.step.active .step-number {
+  background: #c68642;
+  color: white;
+}
+
+.step.completed .step-number {
+  background: #28a745;
+  border-color: #28a745;
+  color: white;
+}
+
+.step-label {
+  font-size: 0.7rem;
+  color: #8b6b4d;
+}
+
+.step.active .step-label {
+  color: #c68642;
+  font-weight: bold;
+}
+
+.step-line {
+  width: 50px;
+  height: 2px;
+  background: rgba(198, 134, 66, 0.3);
+  margin: 0 0.5rem;
+}
+
+.step-line.active {
+  background: #c68642;
+}
+
+/* دکمه‌های پایه قهوه */
+.base-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.base-btn {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(198, 134, 66, 0.3);
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.dark-mode .base-btn {
+  background: rgba(45, 26, 17, 0.5);
+}
+
+.base-btn:hover {
+  transform: translateX(-5px);
+  border-color: #c68642;
+  background: rgba(198, 134, 66, 0.2);
+}
+
+.base-btn.active {
+  border-color: #c68642;
+  background: rgba(198, 134, 66, 0.3);
+  box-shadow: 0 0 15px rgba(198, 134, 66, 0.2);
+}
+
+.base-emoji {
+  font-size: 2rem;
+}
+
+.base-info {
+  flex: 1;
+  text-align: right;
+}
+
+.base-name {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #5a3a1f;
+}
+
+.dark-mode .base-name {
+  color: #e8d5b7;
+}
+
+.base-desc {
+  display: block;
+  font-size: 0.7rem;
+  color: #a0866c;
+  margin-top: 2px;
+}
+
+.base-price {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #c68642;
+}
+
+/* دکمه‌های افزودنی */
+.addons-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.addon-btn {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 1rem;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(198, 134, 66, 0.3);
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.dark-mode .addon-btn {
+  background: rgba(45, 26, 17, 0.5);
+}
+
+.addon-btn:hover {
+  transform: translateX(-5px);
+  border-color: #c68642;
+  background: rgba(198, 134, 66, 0.2);
+}
+
+.addon-btn.active {
+  border-color: #c68642;
+  background: rgba(198, 134, 66, 0.3);
+}
+
+.addon-emoji {
+  font-size: 1.3rem;
+}
+
+.addon-name {
+  flex: 1;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #5a3a1f;
+  text-align: right;
+}
+
+.dark-mode .addon-name {
+  color: #e8d5b7;
+}
+
+.addon-price {
+  font-size: 0.8rem;
+  color: #c68642;
+}
+
+/* خلاصه سفارش */
+.order-summary {
+  background: rgba(198, 134, 66, 0.08);
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: right;
+}
+
+.summary-title {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #c68642;
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(198, 134, 66, 0.2);
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #5a3a1f;
+  margin-bottom: 0.5rem;
+}
+
+.dark-mode .summary-row {
+  color: #e8d5b7;
+}
+
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #c68642;
+  margin-top: 0.8rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(198, 134, 66, 0.2);
+}
+
+/* دکمه‌ها */
+.next-btn, .back-btn, .build-add-btn {
+  padding: 0.8rem 1rem;
+  border-radius: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.next-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #c68642, #8b4513);
+  color: white;
+}
+
+.next-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.next-btn:hover:not(:disabled) {
+  transform: scale(1.02);
+  box-shadow: 0 5px 15px rgba(198, 134, 66, 0.4);
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.back-btn {
+  flex: 1;
+  background: rgba(198, 134, 66, 0.2);
+  border: 1px solid rgba(198, 134, 66, 0.3);
+  color: #5a3a1f;
+}
+
+.dark-mode .back-btn {
+  color: #e8d5b7;
+}
+
+.back-btn:hover {
+  background: rgba(198, 134, 66, 0.3);
+  transform: scale(1.02);
+}
+
+.build-add-btn {
+  flex: 2;
+  background: linear-gradient(135deg, #28a745, #1e7e34);
+  color: white;
+}
+
+.build-add-btn:hover {
+  transform: scale(1.02);
+  box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

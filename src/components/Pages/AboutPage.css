@@ -1,0 +1,33 @@
+.about-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+}
+
+.about-text {
+  max-width: 800px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  border: 1px solid rgba(198, 134, 66, 0.3);
+  text-align: justify;
+}
+
+.about-text p {
+  margin-bottom: 1rem;
+  line-height: 1.8;
+}
+
+@media (max-width: 768px) {
+  .about-text {
+    padding: 1.2rem;
+    margin: 0 1rem;
+  }
+  
+  .about-text p {
+    font-size: 0.85rem;
+  }
+}

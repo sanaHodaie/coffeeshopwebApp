@@ -1,0 +1,516 @@
+.product-card {
+  background: rgba(255, 248, 235, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid rgba(210, 150, 75, 0.3);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  border-color: #c68642;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  background: #ffffff;
+}
+
+.dark-mode .product-card {
+  background: rgba(62, 39, 35, 0.92);
+  border-color: rgba(198, 134, 66, 0.35);
+}
+
+.dark-mode .product-card:hover {
+  background: rgba(78, 55, 50, 0.96);
+  border-color: #c68642;
+}
+
+.product-card .card-image {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background: #2d1a11;
+  overflow: hidden;
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.05);
+}
+
+.card-category-badge {
+  position: absolute;
+  top: 12px;
+  right: auto;
+  left: 12px;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  color: #c68642;
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  z-index: 2;
+  border: 1px solid rgba(198, 134, 66, 0.5);
+}
+
+/* ========== انیمیشن بخار قهوه ========== */
+.steam-wrapper {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: flex-end;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.steam-drop {
+  font-size: 18px;
+  opacity: 0;
+  filter: blur(1px);
+  animation: steamFloat 2.5s ease-in-out infinite;
+}
+
+.steam-drop-1 { animation-delay: 0s; }
+.steam-drop-2 { animation-delay: 0.6s; }
+.steam-drop-3 { animation-delay: 1.2s; }
+
+.steam-line {
+  width: 3px;
+  height: 45px;
+  background: linear-gradient(to top, transparent, rgba(255, 255, 255, 0.7), transparent);
+  border-radius: 50%;
+  filter: blur(2px);
+  opacity: 0;
+  animation: steamRise 2.8s ease-in-out infinite;
+}
+
+.steam-line-1 { animation-delay: 0s; }
+.steam-line-2 { animation-delay: 0.7s; }
+.steam-line-3 { animation-delay: 1.4s; }
+
+@keyframes steamFloat {
+  0% {
+    transform: translateY(0) scale(0.8);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.7;
+    transform: translateY(-5px) scale(1);
+  }
+  100% {
+    transform: translateY(-35px) scale(1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes steamRise {
+  0% {
+    transform: translateY(0) scaleY(0.6);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.6;
+    transform: translateY(-5px) scaleY(1);
+  }
+  100% {
+    transform: translateY(-40px) scaleY(1.4);
+    opacity: 0;
+  }
+}
+
+.product-card:hover .steam-drop {
+  animation-duration: 1.6s;
+}
+
+.product-card:hover .steam-line {
+  animation-duration: 1.8s;
+}
+
+/* ========== بقیه استایل‌ها ========== */
+.card-info {
+  padding: 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  text-align: right;
+}
+
+.product-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #5a3a1f;
+  margin-bottom: 0.3rem;
+}
+
+.dark-mode .product-name {
+  color: #f0e0c0;
+}
+
+.product-desc {
+  color: #8b6b4d;
+  font-size: 0.75rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.dark-mode .product-desc {
+  color: #c4a67a;
+}
+
+.product-ingredients {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 0.65rem;
+  color: #a0866c;
+  margin-bottom: 0.5rem;
+  padding-top: 0.4rem;
+  border-top: 1px solid rgba(139, 69, 19, 0.2);
+  text-align: right;
+  align-items: flex-start;
+}
+
+.dark-mode .product-ingredients {
+  color: #c4a67a;
+}
+
+.ingredients-label {
+  font-weight: 600;
+  color: #c68642;
+  letter-spacing: 1px;
+}
+
+.product-price {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #c68642;
+  margin-bottom: 0.5rem;
+}
+
+.order-btn {
+  background: linear-gradient(135deg, #c68642, #8b4513);
+  border: none;
+  color: white;
+  padding: 0.5rem 0.8rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  font-family: inherit;
+  font-size: 0.75rem;
+  margin-top: auto;
+}
+
+.order-btn:hover {
+  transform: scale(1.02);
+  background: linear-gradient(135deg, #d4954a, #9a5520);
+}
+
+/* ========== ریسپانسیو ========== */
+@media (max-width: 768px) {
+  .product-card .card-image {
+    height: 140px;
+  }
+  
+  .product-name {
+    font-size: 0.9rem;
+  }
+  
+  .product-price {
+    font-size: 0.9rem;
+  }
+  
+  .order-btn {
+    font-size: 0.65rem;
+    padding: 0.4rem 0.6rem;
+  }
+  
+  .steam-drop {
+    font-size: 14px;
+  }
+  
+  .steam-line {
+    width: 2px;
+    height: 30px;
+  }
+  
+  .steam-wrapper {
+    gap: 8px;
+    top: -18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-card .card-image {
+    height: 120px;
+  }
+  
+  .product-name {
+    font-size: 0.85rem;
+  }
+  
+  .product-desc {
+    font-size: 0.6rem;
+  }
+  
+  .product-price {
+    font-size: 0.85rem;
+  }
+  
+  .order-btn {
+    font-size: 0.6rem;
+    padding: 0.35rem 0.5rem;
+  }
+  
+  .card-info {
+    padding: 0.7rem;
+  }
+  
+  .steam-drop {
+    font-size: 12px;
+  }
+  
+  .steam-line {
+    width: 2px;
+    height: 25px;
+  }
+  
+  .steam-wrapper {
+    gap: 6px;
+    top: -15px;
+  }
+}
+
+/* ========================================
+   NATURAL COFFEE STEAM ANIMATION
+======================================== */
+
+.steam-animation {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 100px;
+  pointer-events: none;
+  z-index: 15;
+}
+
+/* هر رشته بخار */
+.steam {
+  position: absolute;
+  bottom: 20px;
+  width: 14px;
+  height: 50px;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.3) 45%,
+    rgba(255, 255, 255, 0.08) 70%,
+    transparent 100%
+  );
+  filter: blur(5px);
+  opacity: 0;
+  transform-origin: center bottom;
+}
+
+/* بخار داخلی */
+.steam::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 70%;
+  left: 4px;
+  top: -10px;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.6),
+    transparent
+  );
+  filter: blur(4px);
+}
+
+/* رشته اول - سمت چپ */
+.steam-1 {
+  left: 25%;
+  animation: steamLeft 5s infinite linear;
+}
+
+/* رشته دوم - وسط */
+.steam-2 {
+  left: 50%;
+  animation: steamCenter 4.6s infinite linear 1s;
+}
+
+/* رشته سوم - سمت راست */
+.steam-3 {
+  left: 75%;
+  animation: steamRight 5.3s infinite linear 0.5s;
+}
+
+/* =========================
+   مسیر بخار چپ
+========================= */
+@keyframes steamLeft {
+  0% {
+    opacity: 10;
+    transform: translateY(0) translateX(0) rotate(0deg) scale(0.5);
+  }
+  15% {
+    opacity: 0.7;
+  }
+  35% {
+    transform: translateY(-15px) translateX(-6px) rotate(-6deg) scale(0.9);
+  }
+  60% {
+    transform: translateY(-35px) translateX(8px) rotate(8deg) scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-60px) translateX(-4px) rotate(-10deg) scale(1.5);
+  }
+}
+
+/* =========================
+   مسیر بخار وسط
+========================= */
+@keyframes steamCenter {
+  0% {
+    opacity: 10;
+    transform: translateY(0) scale(0.5);
+  }
+  20% {
+    opacity: 0.8;
+  }
+  45% {
+    transform: translateY(-25px) translateX(5px) rotate(5deg) scale(1);
+  }
+  75% {
+    transform: translateY(-50px) translateX(-6px) rotate(-6deg) scale(1.3);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-75px) translateX(3px) rotate(8deg) scale(1.8);
+  }
+}
+
+/* =========================
+   مسیر بخار راست
+========================= */
+@keyframes steamRight {
+  0% {
+    opacity: 10;
+    transform: translateY(0) scale(0.5);
+  }
+  15% {
+    opacity: 0.75;
+  }
+  40% {
+    transform: translateY(-20px) translateX(8px) rotate(8deg) scale(0.95);
+  }
+  70% {
+    transform: translateY(-45px) translateX(-5px) rotate(-8deg) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-70px) translateX(6px) rotate(10deg) scale(1.7);
+  }
+}
+
+/* =========================
+   Hover Effect
+========================= */
+.product-card:hover .steam {
+  filter: blur(6px);
+}
+
+.product-card:hover .steam-1 {
+  animation-duration: 4s;
+}
+
+.product-card:hover .steam-2 {
+  animation-duration: 3.8s;
+}
+
+.product-card:hover .steam-3 {
+  animation-duration: 4.2s;
+}
+
+/* =========================
+   Tablet
+========================= */
+@media (max-width: 768px) {
+  .steam-animation {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .steam {
+    width: 12px;
+    height: 40px;
+    bottom: 15px;
+  }
+  
+  .steam::before {
+    left: 3px;
+    top: -8px;
+  }
+}
+
+/* =========================
+   Mobile
+========================= */
+@media (max-width: 480px) {
+  .steam-animation {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .steam {
+    width: 10px;
+    height: 35px;
+    bottom: 12px;
+    filter: blur(4px);
+  }
+  
+  .steam::before {
+    left: 2px;
+    top: -6px;
+  }
+}
+
+/* =========================
+   Small Phones
+========================= */
+@media (max-width: 360px) {
+  .steam-animation {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .steam {
+    width: 8px;
+    height: 30px;
+    bottom: 10px;
+  }
+}
