@@ -51,3 +51,194 @@
     font-size: 1.5rem;
   }
 }
+
+/* استایل hint ها */
+.contact-hint {
+  display: inline-block;
+  font-size: 0.7rem;
+  color: #c68642;
+  margin-top: 4px;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.contact-item:hover .contact-hint {
+  opacity: 1;
+}
+
+/* مودال سفارشی (جایگزین alert ویندوزی) */
+.contact-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: contactFadeIn 0.3s ease-out;
+}
+
+.contact-modal-content {
+  background: linear-gradient(135deg, #fff8ef, #ffe6cc);
+  border-radius: 2rem;
+  padding: 2rem;
+  max-width: 380px;
+  width: 85%;
+  text-align: center;
+  animation: contactSlideUp 0.3s ease-out;
+  border: 1px solid rgba(198, 134, 66, 0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .contact-modal-content {
+  background: linear-gradient(135deg, #2d1a11, #3d2619);
+  color: #e8d5b7;
+}
+
+.contact-modal-emoji {
+  font-size: 3.5rem;
+  margin-bottom: 0.8rem;
+  animation: contactEmojiPop 0.4s ease-out;
+}
+
+.contact-modal-title {
+  font-size: 1.3rem;
+  color: #c68642;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.dark-mode .contact-modal-title {
+  color: #e8a74a;
+}
+
+.contact-modal-message {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #5a3a1f;
+  white-space: pre-line;
+  margin-bottom: 1.5rem;
+}
+
+.dark-mode .contact-modal-message {
+  color: #e8d5b7;
+}
+
+.contact-modal-close-btn {
+  background: linear-gradient(135deg, #c68642, #8b4513);
+  border: none;
+  color: white;
+  padding: 0.6rem 1.5rem;
+  border-radius: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.contact-modal-close-btn:hover {
+  transform: scale(1.02);
+  box-shadow: 0 5px 15px rgba(198, 134, 66, 0.4);
+}
+
+@keyframes contactFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes contactSlideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes contactEmojiPop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  80% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.contact-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+}
+
+.contact-info {
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(198, 134, 66, 0.3);
+}
+
+.contact-item:hover {
+  border-color: #c68642;
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateX(-5px);
+}
+
+.contact-icon {
+  font-size: 2rem;
+}
+
+.contact-item h4 {
+  color: #c68642;
+  margin-bottom: 0.3rem;
+}
+
+@media (max-width: 768px) {
+  .contact-info {
+    padding: 0 1rem;
+  }
+  
+  .contact-item {
+    padding: 0.8rem;
+  }
+  
+  .contact-icon {
+    font-size: 1.5rem;
+  }
+  
+  .contact-modal-content {
+    width: 90%;
+    padding: 1.5rem;
+  }
+  
+  .contact-modal-title {
+    font-size: 1.1rem;
+  }
+  
+  .contact-modal-message {
+    font-size: 0.85rem;
+  }
+}
