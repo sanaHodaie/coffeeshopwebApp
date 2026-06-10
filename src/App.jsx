@@ -392,6 +392,7 @@ const downloadPDF = async () => {
         <Timeline 
           orderStatus={orderStatus}
           progress={progress}
+          onClose={() => setShowTimeline(false)}  // این خط رو اضافه کن
         />
       )}
 

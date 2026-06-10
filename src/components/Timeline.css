@@ -106,3 +106,99 @@
   color: #c68642;
   font-weight: 700;
 }
+
+/* دکمه ضربدر بستن */
+.timeline-close-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #5a3a1f;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.timeline-close-btn:hover {
+  background: rgba(198, 134, 66, 0.2);
+  transform: scale(1.1);
+}
+
+.dark-mode .timeline-close-btn {
+  color: #e8d5b7;
+}
+
+/* موشک سه بعدی که خارج می‌شه */
+.rocket-3d {
+  position: fixed;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  animation: rocketFly 2s ease-out forwards;
+}
+
+.rocket-body {
+  position: relative;
+  animation: rocketShake 0.3s ease-in-out infinite;
+}
+
+.rocket-emoji {
+  font-size: 3rem;
+  display: block;
+  animation: rocketHover 0.5s ease-in-out infinite;
+}
+
+.rocket-flame {
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle, #ff6600, #ff3300);
+  border-radius: 50%;
+  animation: flameFlicker 0.1s ease-in-out infinite;
+}
+
+@keyframes rocketFly {
+  0% {
+    bottom: 20%;
+    opacity: 1;
+    transform: translateX(-50%) rotate(0deg);
+  }
+  50% {
+    bottom: 50%;
+    opacity: 1;
+    transform: translateX(-50%) rotate(-15deg);
+  }
+  100% {
+    bottom: 90%;
+    opacity: 0;
+    transform: translateX(-50%) rotate(-30deg) scale(0.5);
+  }
+}
+
+@keyframes rocketShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
+
+@keyframes rocketHover {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes flameFlicker {
+  0%, 100% { opacity: 1; transform: translateX(-50%) scale(1); }
+  50% { opacity: 0.5; transform: translateX(-50%) scale(1.3); }
+}

@@ -1,9 +1,31 @@
+import { useState, useEffect } from "react";
 import "./Timeline.css";
 
-export default function Timeline({ orderStatus, progress }) {
+export default function Timeline({ orderStatus, progress, onClose }) {
+  const [showRocket, setShowRocket] = useState(false);
+
+  // وقتی progress به 100 رسید، موشک نمایش داده بشه
+  useEffect(() => {
+    if (progress >= 100) {
+      setShowRocket(true);
+      // بعد از 3 ثانیه موشک مخفی بشه
+      const timer = setTimeout(() => {
+        setShowRocket(false);
+      }, 3000);
+      return () => clearTimeout(timer);
+    } else {
+      setShowRocket(false);
+    }
+  }, [progress]);
+
   return (
     <div className="timeline-wrapper">
       <div className="timeline-container">
+        {/* دکمه ضربدر برای بستن */}
+        <button className="timeline-close-btn" onClick={onClose}>
+          ✕
+        </button>
+
         <div className="timeline-header">
           <span className="timeline-title">☕ سفارش شما</span>
           <span className="timeline-status-badge">
@@ -33,6 +55,16 @@ export default function Timeline({ orderStatus, progress }) {
           </div>
         </div>
       </div>
+
+      {/* موشک سه بعدی که از تایم لاین خارج میشه */}
+      {showRocket && (
+        <div className="rocket-3d">
+          <div className="rocket-body">
+            <span className="rocket-emoji">🚀</span>
+            <div className="rocket-flame"></div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
