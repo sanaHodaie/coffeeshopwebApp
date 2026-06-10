@@ -33,37 +33,6 @@
   </head>
   <body>
     <div id="root"></div>
-    <button class="custom-scroll-btn" onclick="scrollToTopOfPageOrModal()">↑</button>
-<script>
-  function scrollToTopOfPageOrModal() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  window.addEventListener('scroll', function() {
-    const btn = document.querySelector('.custom-scroll-btn');
-    const baristasModal = document.querySelector('.baristas-modal-content');
-    const contactModal = document.querySelector('.contact-modal-overlay');
     
-    // اگه مودال باریستاها بازه، دکمه رو مخفی کن
-    if (baristasModal) {
-      btn.style.display = 'none';
-    }
-    // اگه مودال تماس یا صفحه عادی بازه
-    else if (contactModal) {
-      if (window.scrollY > 300) {
-        btn.style.display = 'block';
-      } else {
-        btn.style.display = 'none';
-      }
-    }
-    else {
-      if (window.scrollY > 300) {
-        btn.style.display = 'block';
-      } else {
-        btn.style.display = 'none';
-      }
-    }
-  });
-</script>
   </body>
 </html>
