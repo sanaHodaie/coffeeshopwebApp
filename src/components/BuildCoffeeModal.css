@@ -1,3 +1,18 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease-out;
+}
+
 .build-modal {
   background: rgba(255, 248, 235, 0.98);
   backdrop-filter: blur(20px);
@@ -5,14 +20,39 @@
   padding: 2rem;
   max-width: 500px;
   width: 90%;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
   text-align: center;
   position: relative;
   animation: slideUp 0.3s ease-out;
   border: 1px solid rgba(198, 134, 66, 0.5);
+  overflow: hidden; /* مهم: مخفی کردن اسکرول اضافی از خود مودال */
 }
 
 .dark-mode .build-modal {
   background: rgba(45, 26, 17, 0.98);
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #5a3a1f;
+  transition: transform 0.3s ease;
+  z-index: 10;
+}
+
+.dark-mode .modal-close {
+  color: #e8d5b7;
+}
+
+.modal-close:hover {
+  transform: scale(1.1);
 }
 
 .build-icon {
@@ -30,7 +70,7 @@
 .build-title {
   font-size: 1.5rem;
   color: #c68642;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 /* مراحل */
@@ -38,7 +78,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  flex-shrink: 0;
 }
 
 .step {
@@ -94,12 +135,60 @@
   background: #c68642;
 }
 
+/* محتوای اسکرول‌دار */
+.build-scroll-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0.5rem 0.5rem 0.5rem 0;
+  margin-bottom: 1rem;
+  margin-right: 0;
+}
+
+/* استایل اسکرول */
+.build-scroll-content::-webkit-scrollbar {
+  width: 4px;
+   height: 0; /* حذف اسکرول افقی */
+}
+
+.build-scroll-content::-webkit-scrollbar-track {
+  background: rgba(198, 134, 66, 0.1);
+  border-radius: 10px;
+  margin: 10px 0; /* فاصله از بالا و پایین */
+}
+
+.build-scroll-content::-webkit-scrollbar-thumb {
+  background: #c68642;
+  border-radius: 10px;
+}
+/* مخفی کردن اسکرول بار در مرورگرهایی که پشتیبانی نمی‌کنند */
+.build-scroll-content {
+  scrollbar-width: thin;
+  scrollbar-color: #c68642 rgba(198, 134, 66, 0.1);
+}
+
 /* دکمه‌های پایه قهوه */
+.build-section {
+  text-align: right;
+}
+
+.build-section label {
+  display: block;
+  font-size: 0.85rem;
+  color: #5a3a1f;
+  margin-bottom: 0.8rem;
+  font-weight: 500;
+}
+
+.dark-mode .build-section label {
+  color: #e8d5b7;
+}
+
 .base-buttons {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .base-btn {
@@ -226,7 +315,7 @@
   background: rgba(198, 134, 66, 0.08);
   border-radius: 1rem;
   padding: 1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
   text-align: right;
 }
 
@@ -262,18 +351,21 @@
   border-top: 1px solid rgba(198, 134, 66, 0.2);
 }
 
+/* فوتر با دکمه‌ها */
+.build-footer {
+  flex-shrink: 0;
+  margin-top: 0.5rem;
+}
+
 /* دکمه‌ها */
-.next-btn, .back-btn, .build-add-btn {
+.next-btn {
+  width: 100%;
   padding: 0.8rem 1rem;
   border-radius: 2rem;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
   border: none;
-}
-
-.next-btn {
-  width: 100%;
   background: linear-gradient(135deg, #c68642, #8b4513);
   color: white;
 }
@@ -295,6 +387,12 @@
 
 .back-btn {
   flex: 1;
+  padding: 0.8rem 1rem;
+  border-radius: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
   background: rgba(198, 134, 66, 0.2);
   border: 1px solid rgba(198, 134, 66, 0.3);
   color: #5a3a1f;
@@ -311,6 +409,12 @@
 
 .build-add-btn {
   flex: 2;
+  padding: 0.8rem 1rem;
+  border-radius: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
   background: linear-gradient(135deg, #28a745, #1e7e34);
   color: white;
 }
@@ -318,6 +422,11 @@
 .build-add-btn:hover {
   transform: scale(1.02);
   box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes slideUp {

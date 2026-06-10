@@ -1,10 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./BuildCoffeeModal.css";
 
 export default function BuildCoffeeModal({ onClose, addToCart }) {
   const [selectedBase, setSelectedBase] = useState(null);
   const [selectedAddons, setSelectedAddons] = useState([]);
   const [currentStep, setCurrentStep] = useState(1);
+
+  // قفل کردن اسکرول صفحه اصلی هنگام باز بودن مودال
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
 
   const bases = [
     { id: "espresso", name: "اسپرسو", price: 35000, emoji: "☕", desc: "غلیظ و پرطرفدار" },
@@ -96,26 +104,76 @@ export default function BuildCoffeeModal({ onClose, addToCart }) {
           </div>
         </div>
 
-        {/* مرحله 1: انتخاب پایه قهوه */}
-        {currentStep === 1 && (
-          <div className="build-section">
-            <label>پایه قهوه خود را انتخاب کن:</label>
-            <div className="base-buttons">
-              {bases.map(base => (
-                <button
-                  key={base.id}
-                  className={`base-btn ${selectedBase?.id === base.id ? 'active' : ''}`}
-                  onClick={() => setSelectedBase(base)}
-                >
-                  <span className="base-emoji">{base.emoji}</span>
-                  <div className="base-info">
-                    <span className="base-name">{base.name}</span>
-                    <span className="base-desc">{base.desc}</span>
-                  </div>
-                  <span className="base-price">{base.price.toLocaleString()}ت</span>
-                </button>
-              ))}
+        {/* محتوای اسکرول‌دار */}
+        <div className="build-scroll-content">
+          {/* مرحله 1: انتخاب پایه قهوه */}
+          {currentStep === 1 && (
+            <div className="build-section">
+              <label>پایه قهوه خود را انتخاب کن:</label>
+              <div className="base-buttons">
+                {bases.map(base => (
+                  <button
+                    key={base.id}
+                    className={`base-btn ${selectedBase?.id === base.id ? 'active' : ''}`}
+                    onClick={() => setSelectedBase(base)}
+                  >
+                    <span className="base-emoji">{base.emoji}</span>
+                    <div className="base-info">
+                      <span className="base-name">{base.name}</span>
+                      <span className="base-desc">{base.desc}</span>
+                    </div>
+                    <span className="base-price">{base.price.toLocaleString()}ت</span>
+                  </button>
+                ))}
+              </div>
             </div>
+          )}
+
+          {/* مرحله 2: انتخاب افزودنی‌ها */}
+          {currentStep === 2 && selectedBase && (
+            <div className="build-section">
+              <label>افزودنی‌های دلخواه (اختیاری):</label>
+              <div className="addons-buttons">
+                {addons.map(addon => (
+                  <button
+                    key={addon.id}
+                    className={`addon-btn ${selectedAddons.includes(addon.id) ? 'active' : ''}`}
+                    onClick={() => toggleAddon(addon.id)}
+                  >
+                    <span className="addon-emoji">{addon.emoji}</span>
+                    <span className="addon-name">{addon.name}</span>
+                    <span className="addon-price">+{addon.price.toLocaleString()}ت</span>
+                  </button>
+                ))}
+              </div>
+              
+              <div className="order-summary">
+                <div className="summary-title">خلاصه سفارش</div>
+                <div className="summary-row">
+                  <span>{selectedBase.name}</span>
+                  <span>{selectedBase.price.toLocaleString()} تومان</span>
+                </div>
+                {selectedAddons.map(id => {
+                  const addon = addons.find(a => a.id === id);
+                  return addon ? (
+                    <div key={id} className="summary-row">
+                      <span>+ {addon.name}</span>
+                      <span>{addon.price.toLocaleString()} تومان</span>
+                    </div>
+                  ) : null;
+                })}
+                <div className="summary-total">
+                  <span>مجموع:</span>
+                  <span>{getTotalPrice().toLocaleString()} تومان</span>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* دکمه‌های پایین */}
+        <div className="build-footer">
+          {currentStep === 1 && (
             <button 
               className="next-btn" 
               onClick={handleNext}
@@ -123,49 +181,8 @@ export default function BuildCoffeeModal({ onClose, addToCart }) {
             >
               ادامه
             </button>
-          </div>
-        )}
-
-        {/* مرحله 2: انتخاب افزودنی‌ها */}
-        {currentStep === 2 && selectedBase && (
-          <div className="build-section">
-            <label>افزودنی‌های دلخواه (اختیاری):</label>
-            <div className="addons-buttons">
-              {addons.map(addon => (
-                <button
-                  key={addon.id}
-                  className={`addon-btn ${selectedAddons.includes(addon.id) ? 'active' : ''}`}
-                  onClick={() => toggleAddon(addon.id)}
-                >
-                  <span className="addon-emoji">{addon.emoji}</span>
-                  <span className="addon-name">{addon.name}</span>
-                  <span className="addon-price">+{addon.price.toLocaleString()}ت</span>
-                </button>
-              ))}
-            </div>
-            
-            <div className="order-summary">
-              <div className="summary-title">خلاصه سفارش</div>
-              <div className="summary-row">
-                <span>{selectedBase.name}</span>
-                <span>{selectedBase.price.toLocaleString()} تومان</span>
-              </div>
-              {selectedAddons.map(id => {
-                const addon = addons.find(a => a.id === id);
-                return addon ? (
-                  <div key={id} className="summary-row">
-                    <span>+ {addon.name}</span>
-                    <span>{addon.price.toLocaleString()} تومان</span>
-                  </div>
-                ) : null;
-                
-              })}
-              <div className="summary-total">
-                <span>مجموع:</span>
-                <span>{getTotalPrice().toLocaleString()} تومان</span>
-              </div>
-            </div>
-
+          )}
+          {currentStep === 2 && selectedBase && (
             <div className="action-buttons">
               <button className="back-btn" onClick={handleBack}>
                 ← برگشت
@@ -174,8 +191,8 @@ export default function BuildCoffeeModal({ onClose, addToCart }) {
                 🛒 افزودن به سبد خرید
               </button>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );
