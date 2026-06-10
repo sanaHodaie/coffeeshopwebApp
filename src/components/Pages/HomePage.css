@@ -372,3 +372,6 @@
 }
 
 
+body:has(.baristas-modal-overlay) .custom-scroll-btn {
+  display: none !important;
+}
