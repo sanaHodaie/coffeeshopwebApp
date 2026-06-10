@@ -80,7 +80,7 @@
 
 /* دارک مود - گرادیان تیره و لوکس */
 .dark-mode .baristas-modal-content {
-  background: linear-gradient(135deg, #9d8275, #2d1a11, #765642);
+  background: linear-gradient(135deg, #696361, #2d1a11, #765642);
   border-radius: 2rem;
   padding: 2rem;
   max-width: 900px;
@@ -370,3 +370,5 @@
     height: 140px;
   }
 }
+
+

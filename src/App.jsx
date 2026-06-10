@@ -352,13 +352,15 @@ const downloadPDF = async () => {
         </div>
       )}
 
-      <Header 
-        totalItems={totalItems}
-        onCartClick={() => setShowCart(true)}
-        activePage={activePage}
-        onPageChange={setActivePage}
-        onFunMenuClick={handleFunMenuClick}
-      />
+      {!showModal && !showCart && !showFunMenu && !showLuckyModal && !showBuildModal && !showTimeline && (
+  <Header 
+    totalItems={totalItems}
+    onCartClick={() => setShowCart(true)}
+    activePage={activePage}
+    onPageChange={setActivePage}
+    onFunMenuClick={handleFunMenuClick}
+  />
+)}
 
       <main className="main-content">
         {renderPage()}

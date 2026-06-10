@@ -1,8 +1,25 @@
-import { useState } from "react";
+import { useState , useEffect  } from "react";
 import "./HomePage.css";
 
 export default function HomePage() {
   const [showBaristas, setShowBaristas] = useState(false);
+  
+  // هندل کردن کلید Escape برای بستن مودال
+  useEffect(() => {
+    const handleEscape = (event) => {
+      if (event.key === 'Escape' && showBaristas) {
+        setShowBaristas(false);
+      }
+    };
+    
+    window.addEventListener('keydown', handleEscape);
+    
+    return () => {
+      window.removeEventListener('keydown', handleEscape);
+    };
+  }, [showBaristas]);
+
+
 
   const baristas = [
     {

@@ -33,14 +33,41 @@
   </head>
   <body>
     <div id="root"></div>
-    <button class="custom-scroll-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
-    <script>
-  window.addEventListener('scroll', function() {
-    var btn = document.querySelector('.custom-scroll-btn');
-    if (window.scrollY > 300) {
-      btn.style.display = 'block';
+    <button class="custom-scroll-btn" onclick="scrollToTopOfPageOrModal()">↑</button>
+
+<script>
+  function scrollToTopOfPageOrModal() {
+    // اول ببین مودال باریستاها باز هست؟
+    const modal = document.querySelector('.baristas-modal-content');
+    
+    if (modal) {
+      // اگه مودال بازه، برو به بالای مودال
+      modal.scrollTop = 0;
     } else {
-      btn.style.display = 'none';
+      // اگه مودال بسته، برو به بالای صفحه
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  // نمایش/مخفی کردن دکمه
+  window.addEventListener('scroll', function() {
+    const btn = document.querySelector('.custom-scroll-btn');
+    const modal = document.querySelector('.baristas-modal-content');
+    
+    if (modal) {
+      // اگه مودال بازه، اسکرول مودال رو چک کن
+      if (modal.scrollTop > 300) {
+        btn.style.display = 'block';
+      } else {
+        btn.style.display = 'none';
+      }
+    } else {
+      // اگه مودال بسته، اسکرول صفحه رو چک کن
+      if (window.scrollY > 300) {
+        btn.style.display = 'block';
+      } else {
+        btn.style.display = 'none';
+      }
     }
   });
 </script>
