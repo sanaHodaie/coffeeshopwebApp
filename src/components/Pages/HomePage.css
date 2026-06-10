@@ -41,3 +41,332 @@
     padding: 1rem;
   }
 }
+
+/* مودال گرادیانتی معرفی باریستاها - نسخه حرفه‌ای */
+.baristas-modal-overlay {
+    position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease-out;
+  padding: 15px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* لایت مود - گرادیان روشن و گرم */
+.light-mode .baristas-modal-content {
+  background: linear-gradient(135deg, #b9884c, #ffe6cc, #e6b07d);
+  border-radius: 2rem;
+  padding: 2rem;
+  max-width: 900px;
+  width: 100%;
+  height: auto;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  text-align: center;
+  animation: slideUp 0.3s ease-out;
+  border: 1px solid rgba(198, 134, 66, 0.5);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), 0 0 30px rgba(198, 134, 66, 0.3);
+  margin: 0;
+}
+
+/* دارک مود - گرادیان تیره و لوکس */
+.dark-mode .baristas-modal-content {
+  background: linear-gradient(135deg, #9d8275, #2d1a11, #765642);
+  border-radius: 2rem;
+  padding: 2rem;
+  max-width: 900px;
+  width: 100%;
+  height: auto;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  text-align: center;
+  animation: slideUp 0.3s ease-out;
+  border: 1px solid rgba(198, 134, 66, 0.6);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(198, 134, 66, 0.2);
+  margin: 0;
+}
+
+/* استایل اسکرول مودال */
+.baristas-modal-content::-webkit-scrollbar {
+  width:6px;
+}
+
+.baristas-modal-content::-webkit-scrollbar-track {
+  background: rgba(198, 134, 66, 0.2);
+  border-radius: 10px;
+  margin: 1.5rem 0;
+}
+
+.baristas-modal-content::-webkit-scrollbar-thumb {
+  background: #c68642;
+  border-radius: 10px;
+}
+
+.baristas-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(198, 134, 66, 0.2);
+  border: 1px solid rgba(198, 134, 66, 0.5);
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #c68642;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.baristas-modal-close:hover {
+  background: rgba(198, 134, 66, 0.4);
+  transform: scale(1.1);
+}
+
+.baristas-modal-header {
+  margin-bottom: 2rem;
+}
+
+.baristas-modal-icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+/* لایت مود - رنگ‌های متن */
+.light-mode .baristas-modal-title {
+  font-size: 1.5rem;
+  color: #c68642;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.light-mode .baristas-modal-subtitle {
+  font-size: 0.9rem;
+  color: #8b6b4d;
+  opacity: 0.9;
+}
+
+/* دارک مود - رنگ‌های متن */
+.dark-mode .baristas-modal-title {
+  font-size: 1.5rem;
+  color: #e8a74a;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .baristas-modal-subtitle {
+  font-size: 0.9rem;
+  color: #c4a67a;
+  opacity: 0.9;
+}
+
+/* گرید کارت‌های باریستا */
+.baristas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* لایت مود - کارت باریستا */
+.light-mode .barista-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(198, 134, 66, 0.3);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.light-mode .barista-card:hover {
+  transform: translateY(-5px);
+  border-color: #c68642;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 10px 25px rgba(198, 134, 66, 0.2);
+}
+
+/* دارک مود - کارت باریستا */
+.dark-mode .barista-card {
+  background: rgba(45, 26, 17, 0.6);
+  backdrop-filter: blur(10px);
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(198, 134, 66, 0.4);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .barista-card:hover {
+  transform: translateY(-5px);
+  border-color: #c68642;
+  background: rgba(45, 26, 17, 0.8);
+  box-shadow: 0 10px 25px rgba(198, 134, 66, 0.15);
+}
+
+/* استایل عکس باریستاها - نسخه مربعی و هم اندازه کارت */
+.barista-avatar {
+  width: 100%;
+  height: 180px;
+  margin-bottom: 1rem;
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+}
+
+.barista-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.barista-card:hover .barista-image {
+  transform: scale(1.05);
+}
+
+/* لایت مود - حاشیه عکس */
+.light-mode .barista-avatar {
+  border: 1px solid rgba(198, 134, 66, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* دارک مود - حاشیه عکس */
+.dark-mode .barista-avatar {
+  border: 1px solid rgba(198, 134, 66, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* لایت مود - متن کارت */
+.light-mode .barista-name {
+  font-size: 1.2rem;
+  color: #c68642;
+  margin-bottom: 0.3rem;
+}
+
+.light-mode .barista-role {
+  font-size: 0.8rem;
+  color: #8b6b4d;
+  background: rgba(198, 134, 66, 0.15);
+  display: inline-block;
+  padding: 0.2rem 0.8rem;
+  border-radius: 1rem;
+  margin-bottom: 0.8rem;
+}
+
+.light-mode .barista-info {
+  text-align: right;
+  font-size: 0.75rem;
+  color: #5a3a1f;
+  line-height: 1.6;
+}
+
+/* دارک مود - متن کارت */
+.dark-mode .barista-name {
+  font-size: 1.2rem;
+  color: #e8a74a;
+  margin-bottom: 0.3rem;
+}
+
+.dark-mode .barista-role {
+  font-size: 0.8rem;
+  color: #c4a67a;
+  background: rgba(198, 134, 66, 0.2);
+  display: inline-block;
+  padding: 0.2rem 0.8rem;
+  border-radius: 1rem;
+  margin-bottom: 0.8rem;
+}
+
+.dark-mode .barista-info {
+  text-align: right;
+  font-size: 0.75rem;
+  color: #e8d5b7;
+  line-height: 1.6;
+}
+
+.barista-info p {
+  margin: 0.3rem 0;
+}
+
+.barista-emoji {
+  font-size: 1.5rem;
+  margin-top: 0.8rem;
+}
+
+/* لایت مود - فوتر */
+.light-mode .baristas-footer {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(198, 134, 66, 0.3);
+  color: #8b6b4d;
+  font-size: 0.9rem;
+}
+
+/* دارک مود - فوتر */
+.dark-mode .baristas-footer {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(198, 134, 66, 0.3);
+  color: #c4a67a;
+  font-size: 0.9rem;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ریسپانسیو برای موبایل */
+@media (max-width: 768px) {
+  .baristas-modal-content {
+    padding: 1.5rem;
+    width: 100%;
+  }
+  
+  .baristas-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .baristas-modal-title {
+    font-size: 1.2rem;
+  }
+  
+  .barista-avatar {
+    height: 160px;
+  }
+}
+
+@media (max-width: 480px) {
+  .barista-avatar {
+    height: 140px;
+  }
+}
