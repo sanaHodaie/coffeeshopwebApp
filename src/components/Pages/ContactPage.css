@@ -242,3 +242,13 @@
     font-size: 0.85rem;
   }
 }
+
+/* مخفی کردن هدر عمودی وقتی مودال تماس باز است */
+body:has(.contact-modal-overlay) .header-vertical {
+  display: none !important;
+}
+
+/* همچنین برای ایمنی بیشتر - وقتی هر مودالی با کلاس modal-overlay باز است */
+body:has([class*="modal-overlay"]) .header-vertical {
+  display: none !important;
+}
