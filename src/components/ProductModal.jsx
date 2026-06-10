@@ -79,23 +79,43 @@ export default function ProductModal({ product, addToCart, onClose }) {
     }).filter(Boolean);
   };
 
+  // تابع اشتراک‌گذاری در واتساپ
   const shareOnWhatsApp = () => {
     const addonsText = getAddonsNames().length > 0 ? `\n➕ افزودنی‌ها: ${getAddonsNames().join(", ")}` : "";
-    const message = `☕ ${product.name} (${selectedSize === "small" ? "کوچک" : selectedSize === "medium" ? "متوسط" : "بزرگ"})${addonsText}\n💰 قیمت: ${currentPrice.toLocaleString()} تومان\n📝 ${product.description}\n\n${window.location.href}`;
+    
+    const message = `☕ *${product.name}*\n━━━━━━━━━━━━━━━━━━\n📏 سایز: ${selectedSize === "small" ? "کوچک" : selectedSize === "medium" ? "متوسط" : "بزرگ"}${addonsText}\n💰 قیمت: ${currentPrice.toLocaleString()} تومان\n━━━━━━━━━━━━━━━━━━\n📝 ${product.description}\n🥄 مواد اولیه: ${product.ingredients}\n━━━━━━━━━━━━━━━━━━\n🔗 مشاهده محصول:\n${window.location.href}`;
+    
     window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
   };
 
+  // تابع اشتراک‌گذاری در تلگرام
   const shareOnTelegram = () => {
     const addonsText = getAddonsNames().length > 0 ? `\n➕ افزودنی‌ها: ${getAddonsNames().join(", ")}` : "";
-    const message = `☕ ${product.name} (${selectedSize === "small" ? "کوچک" : selectedSize === "medium" ? "متوسط" : "بزرگ"})${addonsText}\n💰 قیمت: ${currentPrice.toLocaleString()} تومان\n📝 ${product.description}`;
+    
+    const text = `☕ ${product.name}\n━━━━━━━━━━━━━━━━━━\n📏 سایز: ${selectedSize === "small" ? "کوچک" : selectedSize === "medium" ? "متوسط" : "بزرگ"}${addonsText}\n💰 قیمت: ${currentPrice.toLocaleString()} تومان\n━━━━━━━━━━━━━━━━━━\n📝 ${product.description}\n🥄 مواد اولیه: ${product.ingredients}`;
+    
     const url = window.location.href;
-    window.open(`https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(message)}`, '_blank');
+    
+    window.open(`https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`, '_blank');
   };
 
+  // تابع اشتراک‌گذاری در بله (با کپی خودکار - چون API نداره)
   const shareOnBale = () => {
     const addonsText = getAddonsNames().length > 0 ? `\n➕ افزودنی‌ها: ${getAddonsNames().join(", ")}` : "";
-    const message = `☕ ${product.name} (${selectedSize === "small" ? "کوچک" : selectedSize === "medium" ? "متوسط" : "بزرگ"})${addonsText}\n💰 قیمت: ${currentPrice.toLocaleString()} تومان\n📝 ${product.description}\n\n${window.location.href}`;
-    window.open(`https://bale.ai/share?text=${encodeURIComponent(message)}`, '_blank');
+    
+    const message = `☕ ${product.name}\n━━━━━━━━━━━━━━━━━━\n📏 سایز: ${selectedSize === "small" ? "کوچک" : selectedSize === "medium" ? "متوسط" : "بزرگ"}${addonsText}\n💰 قیمت: ${currentPrice.toLocaleString()} تومان\n━━━━━━━━━━━━━━━━━━\n📝 ${product.description}\n🥄 مواد اولیه: ${product.ingredients}\n━━━━━━━━━━━━━━━━━━\n🔗 ${window.location.href}`;
+    
+    // روش 1: تلاش برای باز کردن برنامه بله (فقط موبایل)
+    window.location.href = `bale://share?text=${encodeURIComponent(message)}`;
+    
+    // روش 2: بعد از 500 میلی‌ثانیه اگر برنامه باز نشد، متن رو کپی می‌کنه
+    setTimeout(() => {
+      navigator.clipboard.writeText(message).then(() => {
+        alert("✅ متن سفارش کپی شد!\nحالا می‌توانید آن را در پیام‌رسان بله جایگذاری کنید.");
+      }).catch(() => {
+        alert("❌ کپی نشد. لطفاً دستی متن را کپی کنید.");
+      });
+    }, 500);
   };
 
   const isDrink = product.category === "hot" || product.category === "cold";
