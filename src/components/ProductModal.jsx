@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./ProductModal.css";
 
 export default function ProductModal({ product, addToCart, onClose }) {
@@ -6,6 +6,14 @@ export default function ProductModal({ product, addToCart, onClose }) {
   const [selectedAddons, setSelectedAddons] = useState([]);
   const [isCalculating, setIsCalculating] = useState(false);
   const [currentPrice, setCurrentPrice] = useState(product.price);
+
+  // قفل کردن اسکرول صفحه اصلی هنگام باز بودن مودال
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
 
   // لیست افزودنی‌ها
   const addonsList = [
