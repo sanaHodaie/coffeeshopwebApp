@@ -11,7 +11,7 @@ export default function Timeline({ orderStatus, progress, onClose }) {
       // بعد از 3 ثانیه موشک مخفی بشه
       const timer = setTimeout(() => {
         setShowRocket(false);
-      }, 3000);
+      },3200);
       return () => clearTimeout(timer);
     } else {
       setShowRocket(false);

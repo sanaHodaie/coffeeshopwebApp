@@ -34,6 +34,7 @@
   margin-bottom: 0.6rem;
   padding-bottom: 0.4rem;
   border-bottom: 1px solid rgba(198, 134, 66, 0.2);
+  margin-top: 0.5rem;
 }
 
 .timeline-title {
@@ -140,11 +141,11 @@
 /* موشک سه بعدی که خارج می‌شه */
 .rocket-3d {
   position: fixed;
-  bottom: 20%;
+  bottom:30%;
   left: 50%;
   transform: translateX(-50%);
   z-index: 200;
-  animation: rocketFly 2s ease-out forwards;
+  animation: rocketFly 5s ease-out forwards;
 }
 
 .rocket-body {
