@@ -206,7 +206,7 @@ const downloadPDF = async () => {
   
   element.innerHTML = `
     <div style="text-align: center; border-bottom: 2px solid #c68642; padding-bottom: 15px; margin-bottom: 25px;">
-      <img src="/images/logo.png" style="width: 150px; margin-bottom: 10px;" />
+      <img src="/images/logo.webp" style="width: 150px; margin-bottom: 10px;" />
       <p style="color: #666; margin: 0; font-size: 14px;">فاکتور خرید</p>
     </div>
     
