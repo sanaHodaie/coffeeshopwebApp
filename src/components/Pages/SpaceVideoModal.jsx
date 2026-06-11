@@ -82,7 +82,7 @@ export default function SpaceVideoModal({ onClose }) {
               autoPlay
               loop
               playsInline
-              poster="/images/cafe-front.jpg"
+              poster="/images/cafe-front.webp"
             >
               <source src="/videos/coffee-shop-walkthrough.mp4" type="video/mp4" />
               مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
