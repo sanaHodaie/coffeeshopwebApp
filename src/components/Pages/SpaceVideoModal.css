@@ -1,0 +1,419 @@
+/* مودال ویدیوی فضای دلنشین */
+.space-video-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease-out;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+.space-video-modal-container {
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  margin: 20px;
+  position: relative;
+}
+
+/* لایت مود */
+.light-mode .space-video-modal-content {
+  background: linear-gradient(135deg, #fff8ef, #ffe6cc, #ffd9b5);
+  border-radius: 2rem;
+  padding: 2rem;
+  max-height: 85vh;
+  overflow-y: auto;
+  text-align: center;
+  border: 1px solid rgba(198, 134, 66, 0.5);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), 0 0 30px rgba(198, 134, 66, 0.3);
+}
+
+/* دارک مود */
+.dark-mode .space-video-modal-content {
+  background: linear-gradient(135deg, #1a0f0a, #2d1a11, #1f120a);
+  border-radius: 2rem;
+  padding: 2rem;
+  max-height: 85vh;
+  overflow-y: auto;
+  text-align: center;
+  border: 1px solid rgba(198, 134, 66, 0.6);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(198, 134, 66, 0.2);
+}
+
+/* دکمه بستن */
+.space-video-modal-close {
+  position: sticky;
+  top: 10;
+  left: 100%;
+  float: right;
+  /* background: rgba(198, 134, 66, 0.2); */
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #c68642;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+  transform: translateX(10px);
+  z-index: 10;
+}
+
+.space-video-modal-close:hover {
+  background: rgba(198, 134, 66, 0.4);
+  transform: scale(1.1) translateX(10px);
+}
+
+/* هدر */
+.space-video-header {
+  margin-bottom: 1.5rem;
+  clear: both;
+}
+
+.space-video-icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 0.5rem;
+  animation: bounce 0.5s ease-out;
+}
+
+@keyframes bounce {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.light-mode .space-video-title {
+  font-size: 1.5rem;
+  color: #c68642;
+  margin-bottom: 0.5rem;
+}
+
+.dark-mode .space-video-title {
+  font-size: 1.5rem;
+  color: #e8a74a;
+  margin-bottom: 0.5rem;
+}
+
+.light-mode .space-video-subtitle {
+  font-size: 0.9rem;
+  color: #8b6b4d;
+}
+
+.dark-mode .space-video-subtitle {
+  font-size: 0.9rem;
+  color: #c4a67a;
+}
+
+/* کانتینر ویدیو */
+.video-container {
+  position: relative;
+  margin: 1rem 0;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.coffee-ambient-video {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 1rem;
+}
+
+/* دکمه کنترل پخش سفارشی */
+.video-control-btn {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.video-container:hover .video-control-btn {
+  opacity: 1;
+}
+
+.video-control-btn:hover {
+  background: #c68642;
+  transform: scale(1.1);
+}
+
+/* توضیحات ویدیو */
+.video-description {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: rgba(198, 134, 66, 0.08);
+  border-radius: 1rem;
+}
+
+.desc-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: #5a3a1f;
+}
+
+.dark-mode .desc-item {
+  color: #e8d5b7;
+}
+
+.desc-icon {
+  font-size: 1rem;
+}
+
+/* فوتر */
+.space-video-footer {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(198, 134, 66, 0.3);
+  color: #8b6b4d;
+  font-size: 0.85rem;
+}
+
+.dark-mode .space-video-footer {
+  color: #c4a67a;
+}
+
+.visit-time {
+  font-size: 0.7rem;
+  margin-top: 0.3rem;
+  color: #c68642;
+}
+
+/* اسکرول */
+.space-video-modal-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.space-video-modal-content::-webkit-scrollbar-track {
+  background: rgba(198, 134, 66, 0.2);
+   border-radius: 10px;
+  margin: 19px 0; /* ایجاد فاصله از بالا و پایین برای خارج نشدن از انحنای مودال */
+}
+
+.space-video-modal-content::-webkit-scrollbar-thumb {
+  background: #c68642;
+  border-radius: 10px;
+}
+
+/* انیمیشن‌ها */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ریسپانسیو */
+@media (max-width: 768px) {
+  .space-video-modal-container {
+    width: 95%;
+  }
+  
+  .space-video-modal-content {
+    padding: 1.5rem;
+  }
+  
+  .space-video-title {
+    font-size: 1.2rem;
+  }
+  
+  .video-description {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .desc-item {
+    font-size: 0.7rem;
+  }
+  
+  .video-control-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+    opacity: 1;
+  }
+}
+
+/* ========== پلیر سفارشی ========== */
+.custom-video-container {
+  position: relative;
+  margin: 1rem 0;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.custom-video-player {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  padding: 12px 16px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.custom-video-container:hover .custom-video-player {
+  opacity: 1;
+}
+
+/* نوار پیشرفت */
+.progress-bar-container {
+  padding: 5px 0;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
+.progress-bar-bg {
+  background: rgba(255, 255, 255, 0.3);
+  height: 4px;
+  border-radius: 2px;
+  position: relative;
+}
+
+.progress-bar-fill {
+  background: #c68642;
+  height: 100%;
+  border-radius: 2px;
+  position: relative;
+  transition: width 0.1s linear;
+}
+
+.progress-handle {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  background: #c68642;
+  border: 2px solid white;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.progress-bar-container:hover .progress-handle {
+  opacity: 1;
+}
+
+/* کنترل‌ها */
+.player-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.player-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: white;
+  padding: 5px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.player-btn:hover {
+  transform: scale(1.1);
+  color: #c68642;
+}
+
+.time-display {
+  font-size: 0.75rem;
+  color: white;
+  font-family: monospace;
+  display: flex;
+  gap: 4px;
+}
+
+.current-time, .duration {
+  color: white;
+}
+
+.time-separator {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* کنترل صدا */
+.volume-control {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.volume-slider-container {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.85);
+  padding: 10px 8px;
+  border-radius: 20px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(198, 134, 66, 0.3);
+}
+
+.volume-slider {
+  writing-mode: bt-lr;
+  -webkit-appearance: slider-vertical;
+  width: 4px;
+  height: 60px;
+  background: #c68642;
+  border-radius: 2px;
+}
+
+.volume-slider:focus {
+  outline: none;
+}
+
+/* دکمه تمام صفحه */
+.fullscreen-btn {
+  margin-left: auto;
+}
+
+/* مخفی کردن کنترل‌های پیش‌فرض ویدیو */
+.coffee-ambient-video::-webkit-media-controls {
+  display: none !important;
+}
+
+.coffee-ambient-video::-webkit-media-controls-enclosure {
+  display: none !important;
+}

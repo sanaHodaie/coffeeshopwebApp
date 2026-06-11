@@ -375,3 +375,118 @@
 body:has(.baristas-modal-overlay) .custom-scroll-btn {
   display: none !important;
 }
+
+/* ========== فلش نئونی و افکت ریپل برای کارت باریستا ========== */
+.barista-card-clickable {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+/* فلش نئونی متحرک */
+.neon-arrow {
+  position: absolute;
+  bottom:9px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.3rem;
+  font-weight: bold;
+  animation: neonArrow 1.5s ease-in-out infinite;
+  color: #c68642;
+  text-shadow: 0 0 5px #c68642, 0 0 10px #c68642, 0 0 20px #c68642;
+  z-index: 2;
+  
+}
+
+@keyframes neonArrow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: translateX(-50%) translateY(0);
+    text-shadow: 0 0 5px #c68642;
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(8px);
+    text-shadow: 0 0 10px #c68642, 0 0 20px #c68642, 0 0 30px #c68642;
+  }
+}
+
+/* افکت ریپل */
+.ripple-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-btn:active {
+  transform: scale(0.98);
+  transition: transform 0.1s ease;
+}
+
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(198, 134, 66, 0.6);
+  transform: scale(0);
+  animation: rippleEffect 0.6s linear;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes rippleEffect {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* هاله نئونی دور کارت هنگام هاور */
+.barista-card-clickable:hover {
+  animation: cardGlow 1s ease-in-out infinite;
+  border-color: #c68642;
+}
+
+@keyframes cardGlow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(198, 134, 66, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(198, 134, 66, 0.5);
+  }
+}
+
+
+.coffee-card-clickable {
+  cursor: pointer;
+  position: relative;
+}
+
+.neon-arrow-map {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  color: #c68642;
+  white-space: nowrap;
+  animation: neonMapArrow 1.5s ease-in-out infinite;
+  background: rgba(198, 134, 66, 0.15);
+  padding: 0.2rem 0.6rem;
+  border-radius: 2rem;
+}
+
+@keyframes neonMapArrow {
+  0%, 100% {
+    opacity: 0.6;
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(5px);
+  }
+}
+
+/* کارت فضای دلنشین */
+.space-card-clickable {
+  cursor: pointer;
+  position: relative;
+}

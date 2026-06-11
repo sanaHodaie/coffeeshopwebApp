@@ -1,14 +1,24 @@
-import { useState , useEffect  } from "react";
+import { useState, useEffect } from "react";
 import "./HomePage.css";
+import CoffeeMapModal from "./CoffeeMapModal";
+import SpaceVideoModal from "./SpaceVideoModal";
 
 export default function HomePage() {
   const [showBaristas, setShowBaristas] = useState(false);
+  const [showCoffeeMap, setShowCoffeeMap] = useState(false);
+  const [showSpaceVideo, setShowSpaceVideo] = useState(false);
   
   // هندل کردن کلید Escape برای بستن مودال
   useEffect(() => {
     const handleEscape = (event) => {
       if (event.key === 'Escape' && showBaristas) {
         setShowBaristas(false);
+      }
+      if (event.key === 'Escape' && showCoffeeMap) {
+        setShowCoffeeMap(false);
+      }
+      if (event.key === 'Escape' && showSpaceVideo) {
+        setShowSpaceVideo(false);
       }
     };
     
@@ -17,9 +27,7 @@ export default function HomePage() {
     return () => {
       window.removeEventListener('keydown', handleEscape);
     };
-  }, [showBaristas]);
-
-
+  }, [showBaristas, showCoffeeMap, showSpaceVideo]);
 
   const baristas = [
     {
@@ -30,7 +38,7 @@ export default function HomePage() {
       specialty: "تخصص: قهوه‌های تخصصی و لاته‌آرت",
       bio: "برنده مسابقات ملی لاته‌آرت ۱۴۰۲",
       emoji: "🏆",
-      image: "/images/rezakarimie.webp",  // ← مسیر عکس رو اینجا بزار
+      image: "/images/rezakarimie.webp",
       alt: "باریستا رضا کریمی"
     },
     {
@@ -41,7 +49,7 @@ export default function HomePage() {
       specialty: "تخصص: قهوه‌های سرد و خلاقانه",
       bio: "طراح نوشیدنی‌های مخصوص کافه",
       emoji: "🎨",
-      image: "/images/saramohammadie.webp",  // ← مسیر عکس رو اینجا بزار
+      image: "/images/saramohammadie.webp",
       alt: "باریستا سارا محمدی"
     },
     {
@@ -52,7 +60,7 @@ export default function HomePage() {
       specialty: "تخصص: اسپرسو و ترکیب دانه‌ها",
       bio: "دارای مدرک بین‌المللی SCA",
       emoji: "🌟",
-      image: "/images/alinouri.webp",  // ← مسیر عکس رو اینجا بزار
+      image: "/images/alinouri.webp",
       alt: "باریستا علی نوری"
     }
   ];
@@ -69,29 +77,72 @@ export default function HomePage() {
         </p>
       </div>
       <div className="home-content">
-        <div className="home-card">
+        {/* کارت قهوه‌های تازه - باز کردن نقشه */}
+        <div 
+          className="home-card coffee-card-clickable" 
+          onClick={() => setShowCoffeeMap(true)}
+        >
           <div className="home-icon">☕</div>
           <h3>قهوه‌های تازه</h3>
           <p>قهوه‌های ما روزانه از بهترین دانه‌های قهوه تهیه می‌شوند</p>
+          <div className="coffee-hint">
+            <div className="neon-arrow">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 5V19M12 19L19 12M12 19L5 12" stroke="#c68642" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>     
+          </div>
         </div>
         
-        {/* کارت باریستا با قابلیت کلیک */}
+        {/* کارت باریستا با فلش نئونی و افکت ریپل */}
         <div 
-          className="home-card barista-card-clickable" 
-          onClick={() => setShowBaristas(!showBaristas)}
+          className="home-card barista-card-clickable ripple-btn" 
+          onClick={(e) => {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const ripple = document.createElement('span');
+            ripple.className = 'ripple';
+            ripple.style.left = `${e.clientX - rect.left}px`;
+            ripple.style.top = `${e.clientY - rect.top}px`;
+            e.currentTarget.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 600);
+            setShowBaristas(!showBaristas);
+          }}
         >
           <div className="home-icon">👨‍🍳</div>
           <h3>باریستاهای حرفه‌ای</h3>
           <p>باریستاهای مجرب ما بهترین نوشیدنی‌ها را برای شما آماده می‌کنند</p>
-          <div className="click-hint">✨ برای آشنایی بیشتر کلیک کنید ✨</div>
+          <div className="neon-arrow">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 5V19M12 19L19 12M12 19L5 12" stroke="#c68642" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
         </div>
 
-        <div className="home-card">
+        {/* کارت فضای دلنشین - باز کردن ویدیو */}
+        <div 
+          className="home-card space-card-clickable" 
+          onClick={() => setShowSpaceVideo(true)}
+        >
           <div className="home-icon">🏠</div>
           <h3>فضای دلنشین</h3>
           <p>فضایی گرم و صمیمی برای لحظات خاص شما</p>
+          <div className="neon-arrow">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 5V19M12 19L19 12M12 19L5 12" stroke="#c68642" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
         </div>
       </div>
+
+      {/* مودال نقشه قهوه */}
+      {showCoffeeMap && (
+        <CoffeeMapModal onClose={() => setShowCoffeeMap(false)} />
+      )}
+
+      {/* مودال ویدیوی فضای دلنشین */}
+      {showSpaceVideo && (
+        <SpaceVideoModal onClose={() => setShowSpaceVideo(false)} />
+      )}
 
       {/* مودال معرفی باریستاها */}
       {showBaristas && (
@@ -108,18 +159,17 @@ export default function HomePage() {
             <div className="baristas-grid">
               {baristas.map(barista => (
                 <div key={barista.id} className="barista-card">
-                <div className="barista-avatar">
-                  <img 
-                    src={barista.image} 
-                    alt={barista.alt}
-                    className="barista-image"
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 150'%3E%3Crect width='200' height='150' fill='%23c68642'/%3E%3Ctext x='100' y='85' text-anchor='middle' fill='white' font-size='40'%3E👨‍🍳%3C/text%3E%3C/svg%3E";
-                    }}
-                  />
-                </div>
-
+                  <div className="barista-avatar">
+                    <img 
+                      src={barista.image} 
+                      alt={barista.alt}
+                      className="barista-image"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 150'%3E%3Crect width='200' height='150' fill='%23c68642'/%3E%3Ctext x='100' y='85' text-anchor='middle' fill='white' font-size='40'%3E👨‍🍳%3C/text%3E%3C/svg%3E";
+                      }}
+                    />
+                  </div>
                   <h3 className="barista-name">{barista.name}</h3>
                   <div className="barista-role">{barista.role}</div>
                   <div className="barista-info">
