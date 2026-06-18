@@ -51,10 +51,9 @@
 /* دکمه بستن */
 .space-video-modal-close {
   position: sticky;
-  top: 10;
+  top: 0;
   left: 100%;
   float: right;
-  /* background: rgba(198, 134, 66, 0.2); */
   border: none;
   font-size: 1.2rem;
   cursor: pointer;
@@ -118,7 +117,7 @@
 }
 
 /* کانتینر ویدیو */
-.video-container {
+.custom-video-container {
   position: relative;
   margin: 1rem 0;
   border-radius: 1.5rem;
@@ -133,146 +132,47 @@
   border-radius: 1rem;
 }
 
-/* دکمه کنترل پخش سفارشی */
-.video-control-btn {
+/* دکمه پلی بزرگ وسط */
+.video-play-center {
   position: absolute;
-  bottom: 15px;
-  right: 15px;
-  width: 40px;
-  height: 40px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.6);
-  color: white;
-  border: none;
-  font-size: 1.2rem;
+  background: rgba(198, 134, 66, 0.85);
+  border: 3px solid rgba(255, 255, 255, 0.8);
   cursor: pointer;
   transition: all 0.3s ease;
+  z-index: 5;
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  animation: pulsePlay 2s ease-in-out infinite;
 }
 
-.video-container:hover .video-control-btn {
-  opacity: 1;
-}
-
-.video-control-btn:hover {
+.video-play-center:hover {
+  transform: translate(-50%, -50%) scale(1.1);
   background: #c68642;
-  transform: scale(1.1);
 }
 
-/* توضیحات ویدیو */
-.video-description {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin: 1.5rem 0;
-  padding: 1rem;
-  background: rgba(198, 134, 66, 0.08);
-  border-radius: 1rem;
+.play-icon {
+  font-size: 2rem;
+  color: white;
+  margin-left: 5px;
 }
 
-.desc-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.75rem;
-  color: #5a3a1f;
-}
-
-.dark-mode .desc-item {
-  color: #e8d5b7;
-}
-
-.desc-icon {
-  font-size: 1rem;
-}
-
-/* فوتر */
-.space-video-footer {
-  margin-top: 1.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(198, 134, 66, 0.3);
-  color: #8b6b4d;
-  font-size: 0.85rem;
-}
-
-.dark-mode .space-video-footer {
-  color: #c4a67a;
-}
-
-.visit-time {
-  font-size: 0.7rem;
-  margin-top: 0.3rem;
-  color: #c68642;
-}
-
-/* اسکرول */
-.space-video-modal-content::-webkit-scrollbar {
-  width: 6px;
-}
-
-.space-video-modal-content::-webkit-scrollbar-track {
-  background: rgba(198, 134, 66, 0.2);
-   border-radius: 10px;
-  margin: 19px 0; /* ایجاد فاصله از بالا و پایین برای خارج نشدن از انحنای مودال */
-}
-
-.space-video-modal-content::-webkit-scrollbar-thumb {
-  background: #c68642;
-  border-radius: 10px;
-}
-
-/* انیمیشن‌ها */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* ریسپانسیو */
-@media (max-width: 768px) {
-  .space-video-modal-container {
-    width: 95%;
+@keyframes pulsePlay {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(198, 134, 66, 0.5);
   }
-  
-  .space-video-modal-content {
-    padding: 1.5rem;
-  }
-  
-  .space-video-title {
-    font-size: 1.2rem;
-  }
-  
-  .video-description {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-  
-  .desc-item {
-    font-size: 0.7rem;
-  }
-  
-  .video-control-btn {
-    width: 35px;
-    height: 35px;
-    font-size: 1rem;
-    opacity: 1;
+  50% {
+    box-shadow: 0 0 0 20px rgba(198, 134, 66, 0);
   }
 }
 
-/* ========== پلیر سفارشی ========== */
-.custom-video-container {
-  position: relative;
-  margin: 1rem 0;
-  border-radius: 1.5rem;
-  overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-}
-
+/* پلیر سفارشی */
 .custom-video-player {
   position: absolute;
   bottom: 0;
@@ -416,4 +316,107 @@
 
 .coffee-ambient-video::-webkit-media-controls-enclosure {
   display: none !important;
+}
+
+/* توضیحات ویدیو */
+.video-description {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: rgba(198, 134, 66, 0.08);
+  border-radius: 1rem;
+}
+
+.desc-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: #5a3a1f;
+}
+
+.dark-mode .desc-item {
+  color: #e8d5b7;
+}
+
+.desc-icon {
+  font-size: 1rem;
+}
+
+/* فوتر */
+.space-video-footer {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(198, 134, 66, 0.3);
+  color: #8b6b4d;
+  font-size: 0.85rem;
+}
+
+.dark-mode .space-video-footer {
+  color: #c4a67a;
+}
+
+.visit-time {
+  font-size: 0.7rem;
+  margin-top: 0.3rem;
+  color: #c68642;
+}
+
+/* اسکرول */
+.space-video-modal-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.space-video-modal-content::-webkit-scrollbar-track {
+  background: rgba(198, 134, 66, 0.2);
+  border-radius: 10px;
+  margin: 19px 0;
+}
+
+.space-video-modal-content::-webkit-scrollbar-thumb {
+  background: #c68642;
+  border-radius: 10px;
+}
+
+/* انیمیشن‌ها */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ریسپانسیو */
+@media (max-width: 768px) {
+  .space-video-modal-container {
+    width: 95%;
+  }
+  
+  .space-video-modal-content {
+    padding: 1.5rem;
+  }
+  
+  .space-video-title {
+    font-size: 1.2rem;
+  }
+  
+  .video-description {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .desc-item {
+    font-size: 0.7rem;
+  }
+  
+  .video-play-center {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .play-icon {
+    font-size: 1.5rem;
+  }
 }

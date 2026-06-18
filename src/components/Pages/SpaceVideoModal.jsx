@@ -2,14 +2,14 @@ import { useState, useEffect, useRef } from "react";
 import "./SpaceVideoModal.css";
 
 export default function SpaceVideoModal({ onClose }) {
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [volume, setVolume] = useState(1);
   const [showVolume, setShowVolume] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
   const videoRef = useRef(null);
 
   useEffect(() => {
-    // قفل کردن اسکرول صفحه اصلی
     document.body.style.overflow = 'hidden';
     return () => {
       document.body.style.overflow = 'unset';
@@ -25,8 +25,21 @@ export default function SpaceVideoModal({ onClose }) {
       setProgress(percent);
     };
 
+    const handleLoaded = () => {
+      setIsLoaded(true);
+      setTimeout(() => {
+        video.play();
+        setIsPlaying(true);
+      }, 1000);
+    };
+
     video.addEventListener('timeupdate', updateProgress);
-    return () => video.removeEventListener('timeupdate', updateProgress);
+    video.addEventListener('loadeddata', handleLoaded);
+    
+    return () => {
+      video.removeEventListener('timeupdate', updateProgress);
+      video.removeEventListener('loadeddata', handleLoaded);
+    };
   }, []);
 
   const togglePlay = () => {
@@ -37,6 +50,10 @@ export default function SpaceVideoModal({ onClose }) {
       video.play();
     }
     setIsPlaying(!isPlaying);
+  };
+
+  const handleVideoClick = () => {
+    togglePlay();
   };
 
   const handleProgressClick = (e) => {
@@ -53,6 +70,13 @@ export default function SpaceVideoModal({ onClose }) {
     setVolume(newVolume);
     if (videoRef.current) {
       videoRef.current.volume = newVolume;
+    }
+  };
+
+  const toggleFullscreen = () => {
+    const video = videoRef.current;
+    if (video.requestFullscreen) {
+      video.requestFullscreen();
     }
   };
 
@@ -77,16 +101,24 @@ export default function SpaceVideoModal({ onClose }) {
           <div className="custom-video-container">
             <video 
               ref={videoRef}
-              id="coffee-video"
               className="coffee-ambient-video"
               autoPlay
               loop
               playsInline
+              muted
               poster="/images/cafe-front.webp"
+              onClick={handleVideoClick}
             >
               <source src="/videos/coffee-shop-walkthrough.mp4" type="video/mp4" />
               مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
             </video>
+
+            {/* دکمه پلی بزرگ وسط */}
+            {!isPlaying && isLoaded && (
+              <button className="video-play-center" onClick={togglePlay}>
+                <span className="play-icon">▶</span>
+              </button>
+            )}
 
             {/* پلیر سفارشی */}
             <div className="custom-video-player">
@@ -127,18 +159,12 @@ export default function SpaceVideoModal({ onClose }) {
                         value={volume}
                         onChange={handleVolumeChange}
                         className="volume-slider"
-                        orient="vertical"
                       />
                     </div>
                   )}
                 </div>
 
-                <button className="player-btn fullscreen-btn" onClick={() => {
-                  const video = videoRef.current;
-                  if (video.requestFullscreen) {
-                    video.requestFullscreen();
-                  }
-                }}>
+                <button className="player-btn fullscreen-btn" onClick={toggleFullscreen}>
                   ⛶
                 </button>
               </div>
