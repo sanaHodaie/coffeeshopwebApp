@@ -1,33 +1,409 @@
-.about-content {
+/* ===== درباره ما - نسخه سفارشی ===== */
+.about-page-custom {
+  min-height: 100vh;
+  padding: 2rem 1rem 4rem;
+  background: transparent;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  min-height: 60vh;
 }
 
-.about-text {
-  max-width: 800px;
-  margin: 0 auto;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+.hero-section-custom {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.hero-section-custom h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #5a3a1f;
+}
+
+.hero-section-custom .highlight {
+  color: #c68642;
+  display: block;
+}
+
+.hero-section-custom p {
+  color: #8b6b4d;
+  font-size: 1.1rem;
+}
+
+.dark-mode .hero-section-custom h1 {
+  color: #e8d5b7;
+}
+.dark-mode .hero-section-custom p {
+  color: #c4a67a;
+}
+
+/* ===== تایم‌لاین ===== */
+.journey-timeline {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}
+
+.timeline-path {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  position: relative;
+  padding: 1.5rem 0.5rem;
+  direction: rtl;
+}
+
+.journey-node {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  position: relative;
+}
+
+.journey-node:last-child {
+  flex: 0;
+}
+
+/* ===== دایره‌ها ===== */
+.node-circle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 248, 235, 0.5);
+  border: 3px solid rgba(198, 134, 66, 0.2);
+  cursor: pointer;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  z-index: 2;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+
+.dark-mode .node-circle {
+  background: rgba(45, 26, 17, 0.5);
+}
+
+.node-circle:hover {
+  transform: translateY(-3px);
+}
+
+.node-circle.done {
+  border-color: #c68642;
+  background: rgba(198, 134, 66, 0.1);
+  box-shadow: 0 0 20px rgba(198, 134, 66, 0.1);
+}
+
+.node-circle.active {
+  transform: scale(1.2);
+  border-color: var(--node-color, #c68642);
+  box-shadow: 0 0 30px rgba(198, 134, 66, 0.25);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.node-circle .node-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.node-circle .node-label {
+  font-size: 0.55rem;
+  color: #8b6b4d;
+  margin-top: 2px;
+  font-weight: 500;
+}
+
+.dark-mode .node-circle .node-label {
+  color: #c4a67a;
+}
+
+.node-circle.active .node-label {
+  color: #c68642;
+}
+
+/* ===== ریپل افکت ===== */
+.node-ripple {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 2px solid var(--node-color, #c68642);
+  animation: rippleExpand 1.5s ease-out infinite;
+}
+
+@keyframes rippleExpand {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* ===== خط اتصال ===== */
+.node-connector {
+  flex: 1;
+  height: 3px;
+  position: relative;
+  margin: 0 2px;
+}
+
+.connector-line {
+  width: 100%;
+  height: 100%;
+  background: rgba(198, 134, 66, 0.15);
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.connector-line.filled {
+  background: #c68642;
+  box-shadow: 0 0 10px rgba(198, 134, 66, 0.2);
+}
+
+.connector-dot {
+  position: absolute;
+  right: -4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #c68642;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.connector-line.filled .connector-dot {
+  opacity: 1;
+}
+
+/* ===== نمایشگر اطلاعات ===== */
+.journey-display {
+  width: 100%;
+  max-width: 600px;
+}
+
+.display-card {
+  background: rgba(255, 248, 235, 0.7);
+  backdrop-filter: blur(16px);
   border-radius: 1.5rem;
   padding: 2rem;
-  border: 1px solid rgba(198, 134, 66, 0.3);
-  text-align: justify;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  border: 1px solid rgba(198, 134, 66, 0.15);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+  position: relative;
+  overflow: hidden;
+  animation: cardSlide 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.about-text p {
-  margin-bottom: 1rem;
-  line-height: 1.8;
+.dark-mode .display-card {
+  background: rgba(45, 26, 17, 0.7);
 }
 
-@media (max-width: 768px) {
-  .about-text {
-    padding: 1.2rem;
-    margin: 0 1rem;
+.display-card .display-icon {
+  font-size: 3rem;
+  flex-shrink: 0;
+}
+
+.display-content {
+  flex: 1;
+  text-align: right;
+}
+
+.display-content .display-step {
+  font-size: 0.7rem;
+  color: #c68642;
+  font-weight: 600;
+  letter-spacing: 1px;
+  background: rgba(198, 134, 66, 0.1);
+  padding: 0.2rem 0.8rem;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 0.3rem;
+}
+
+.display-content h2 {
+  font-size: 1.4rem;
+  color: #5a3a1f;
+  margin: 0.2rem 0;
+}
+
+.dark-mode .display-content h2 {
+  color: #e8d5b7;
+}
+
+.display-content p {
+  font-size: 0.9rem;
+  color: #8b6b4d;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.dark-mode .display-content p {
+  color: #c4a67a;
+}
+
+.display-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 100%;
+  border-radius: 1.5rem 0 0 1.5rem;
+}
+
+@keyframes cardSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
   }
-  
-  .about-text p {
-    font-size: 0.85rem;
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ===== ناوبری ===== */
+.journey-nav {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+.journey-nav .nav-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(198, 134, 66, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.journey-nav .nav-dot.active {
+  background: #c68642;
+  width: 28px;
+  border-radius: 10px;
+}
+
+.journey-nav .nav-dot:hover {
+  transform: scale(1.2);
+}
+
+/* ===== ریسپانسیو ===== */
+@media (max-width: 768px) {
+  .timeline-path {
+    flex-direction: column;
+    gap: 0.8rem;
+    padding: 1rem 0;
+  }
+
+  .journey-node {
+    flex: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .node-connector {
+    width: 3px;
+    height: 35px;
+    flex: none;
+    margin: 2px 0;
+  }
+
+  .connector-line {
+    width: 3px;
+    height: 100%;
+  }
+
+  .connector-dot {
+    right: 50%;
+    top: auto;
+    bottom: -4px;
+    transform: translateX(50%);
+  }
+
+  .node-circle {
+    width: 60px;
+    height: 60px;
+  }
+
+  .node-circle .node-icon {
+    font-size: 1.2rem;
+  }
+
+  .display-card {
+    padding: 1.5rem;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .display-card .display-icon {
+    font-size: 2.5rem;
+  }
+
+  .display-content {
+    text-align: center;
+  }
+
+  .display-accent {
+    height: 6px;
+    width: 100%;
+    border-radius: 0 0 1.5rem 1.5rem;
+    top: auto;
+    bottom: 0;
+  }
+
+  .hero-section-custom h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .node-circle {
+    width: 50px;
+    height: 50px;
+  }
+
+  .node-circle .node-icon {
+    font-size: 1rem;
+  }
+
+  .node-circle .node-label {
+    font-size: 0.45rem;
+  }
+
+  .display-card {
+    padding: 1rem;
+  }
+
+  .display-content h2 {
+    font-size: 1.1rem;
+  }
+
+  .display-content p {
+    font-size: 0.8rem;
+  }
+
+  .journey-nav .nav-dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .journey-nav .nav-dot.active {
+    width: 22px;
   }
 }

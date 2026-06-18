@@ -25,12 +25,14 @@ body {
 .light-mode {
   background: linear-gradient(135deg, #fdf4e3 0%, #f5e6cc 50%, #ecd9b4 100%);
   color: #5a3a1f;
+  min-height: 100vh;
 }
 
 /* ========== حالت تیره ========== */
 .dark-mode {
   background: linear-gradient(135deg, #4a3020 0%, #3d271a 50%, #2e1f15 100%);
   color: #e8d5b7;
+  min-height: 100vh;
 }
 
 .dark-mode .product-card {
