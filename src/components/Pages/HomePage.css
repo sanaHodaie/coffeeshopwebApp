@@ -116,10 +116,12 @@
   border-radius: 10px;
 }
 
+/* دکمه بستن مودال باریستاها - به صورت sticky مثل مودال ویدیو */
 .baristas-modal-close {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
+  position: sticky;
+  top: 0;
+  left: 100%;
+  float: right;
   background: rgba(198, 134, 66, 0.2);
   border: 1px solid rgba(198, 134, 66, 0.5);
   font-size: 1.2rem;
@@ -132,7 +134,14 @@
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
+  margin-bottom: 1rem;
+  transform: translateX(10px);
   z-index: 10;
+}
+
+.baristas-modal-close:hover {
+  background: rgba(198, 134, 66, 0.4);
+  transform: scale(1.1) translateX(10px);
 }
 
 .baristas-modal-close:hover {

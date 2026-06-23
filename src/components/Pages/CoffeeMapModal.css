@@ -54,7 +54,7 @@
   position: absolute; /* تغییر از sticky به absolute برای کنترل بهتر */
   top: 1.5rem;
   right: 1.5rem; /* تنظیم دقیق در سمت راست برای زبان‌های راست‌چین */
-  
+  background: rgba(198, 134, 66, 0.2);
   border: none;
   font-size: 1.2rem;
   cursor: pointer;
