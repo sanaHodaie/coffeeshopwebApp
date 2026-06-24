@@ -1,17 +1,10 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { AuthProvider } from "./contexts/AuthContext";
-import ProtectedRoute from "./components/ProtectedRoute";
-
-// صفحات عمومی
-import HomePage from "./components/Pages/HomePage";
+import { products } from "./data/products";
+import Header from "./components/Header";
 import MenuPage from "./components/Pages/MenuPage";
+import HomePage from "./components/Pages/HomePage";
 import ContactPage from "./components/Pages/ContactPage";
 import AboutPage from "./components/Pages/AboutPage";
-import Login from "./components/Pages/Login";
-
-// کامپوننت‌های اصلی
-import Header from "./components/Header";
 import CartModal from "./components/CartModal";
 import ProductModal from "./components/ProductModal";
 import Timeline from "./components/Timeline";
@@ -22,20 +15,9 @@ import BuildCoffeeModal from "./components/BuildCoffeeModal";
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
-// صفحات ادمین
-import AdminLayout from "./layouts/AdminLayout";
-import Dashboard from "./components/admin/Dashboard";
-import Products from "./components/admin/Products";
-import Orders from "./components/admin/Orders";
-import Settings from "./components/admin/Settings";
-
-import { products } from "./data/products";
 import "./App.css";
 
-function AppContent() {
-  const location = useLocation();
-  const isAdminRoute = location.pathname.startsWith('/admin') || location.pathname.startsWith('/login');
-  
+function App() {
   const [cart, setCart] = useState(() => {
     const savedCart = localStorage.getItem("cart");
     return savedCart ? JSON.parse(savedCart) : [];
@@ -57,10 +39,12 @@ function AppContent() {
   const [showTimeline, setShowTimeline] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   
+  // State های جدید برای منوی سرگرمی
   const [showFunMenu, setShowFunMenu] = useState(false);
   const [showLuckyModal, setShowLuckyModal] = useState(false);
   const [showBuildModal, setShowBuildModal] = useState(false);
 
+  // اسکرول به بالا
   useEffect(() => {
     const handleScroll = () => {
       setShowScrollTop(window.scrollY > 300);
@@ -165,6 +149,7 @@ function AppContent() {
     setShowModal(true);
   };
 
+  // توابع منوی سرگرمی
   const handleFunMenuClick = () => {
     setShowFunMenu(true);
   };
@@ -179,124 +164,125 @@ function AppContent() {
     setShowBuildModal(true);
   };
 
-  const downloadPDF = async () => {
-    if (cart.length === 0) {
-      showNotification("سبد خرید خالی است!", "error");
-      return;
-    }
+// تابع دانلود PDF
+const downloadPDF = async () => {
+  if (cart.length === 0) {
+    showNotification("سبد خرید خالی است!", "error");
+    return;
+  }
 
-    showNotification("در حال آماده‌سازی فاکتور... ☕", "info");
+  // فقط همین خط اضافه شد (قبل از هر چیزی)
+  showNotification("در حال آماده‌سازی فاکتور... ☕", "info");
 
-    const now = new Date();
-    const timeString = now.toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' });
+  const now = new Date();
+  const timeString = now.toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' });
 
-    const getSizeName = (size) => {
-      if (!size) return "";
-      switch(size) {
-        case "small": return "کوچک";
-        case "medium": return "متوسط";
-        case "large": return "بزرگ";
-        default: return "";
-      }
-    };
-
-    const getAddonsText = (addonsNames) => {
-      if (!addonsNames || addonsNames.length === 0) return "-";
-      return addonsNames.join(" + ");
-    };
-
-    const element = document.createElement('div');
-    element.style.width = '800px';
-    element.style.padding = '30px';
-    element.style.backgroundColor = 'white';
-    element.style.direction = 'rtl';
-    element.style.fontFamily = 'Vazirmatn, Vazir, system-ui, sans-serif';
-    element.style.position = 'absolute';
-    element.style.left = '-9999px';
-    element.style.top = '-9999px';
-    
-    element.innerHTML = `
-      <div style="text-align: center; border-bottom: 2px solid #c68642; padding-bottom: 15px; margin-bottom: 25px;">
-        <img src="/images/logo.webp" style="width: 180px; margin-bottom: 10px;" />
-        <p style="color: #666; margin: 0; font-size: 16px;">فاکتور خرید</p>
-      </div>
-      
-      <div style="background: #f5f5f5; padding: 15px; border-radius: 10px; margin-bottom: 25px;">
-        <p style="margin: 8px 0; font-size: 14px;">📅 تاریخ: ${new Date().toLocaleDateString('fa-IR')}</p>
-        <p style="margin: 8px 0; font-size: 14px;">⏰ زمان ثبت: ${timeString}</p>
-        <p style="margin: 8px 0; font-size: 14px;">🧾 شماره سفارش: #${Math.floor(Math.random() * 100000)}</p>
-        <p style="margin: 8px 0; font-size: 14px;">👤 مشتری: ${user?.name || "مهمان عزیز"}</p>
-        <p style="margin: 8px 0; font-size: 14px;">📊 وضعیت سفارش: تکمیل شده ✅</p>
-        <p style="margin: 8px 0; font-size: 14px;">💳 روش پرداخت: نقدی</p>
-      </div>
-      
-      <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px;">
-        <thead>
-          <tr style="background: #c68642; color: white;">
-            <th style="padding: 10px; text-align: center; font-size: 14px;">نام محصول</th>
-            <th style="padding: 10px; text-align: center; font-size: 14px;">سایز</th>
-            <th style="padding: 10px; text-align: center; font-size: 14px;">تعداد</th>
-            <th style="padding: 10px; text-align: center; font-size: 14px;">قیمت واحد</th>
-            <th style="padding: 10px; text-align: center; font-size: 14px;">مجموع</th>
-            <th style="padding: 10px; text-align: center; font-size: 14px;">افزودنی‌ها</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${cart.map(item => `
-            <tr style="border-bottom: 1px solid #ddd;">
-              <td style="padding: 8px; text-align: center; font-size: 13px;">${item.name}${item.size ? ` (${getSizeName(item.size)})` : ''}${item.isLucky ? ' 🎲' : ''}${item.isCustom ? ' 🎨' : ''}</td>
-              <td style="padding: 8px; text-align: center; font-size: 13px;">${item.size ? getSizeName(item.size) : '-'}</td>
-              <td style="padding: 8px; text-align: center; font-size: 13px;">${item.quantity}</td>
-              <td style="padding: 8px; text-align: center; font-size: 13px;">${item.price.toLocaleString()} تومان</td>
-              <td style="padding: 8px; text-align: center; font-size: 13px;">${(item.price * item.quantity).toLocaleString()} تومان</td>
-              <td style="padding: 8px; text-align: center; font-size: 13px;">${getAddonsText(item.addonsNames)}</td>
-            </tr>
-          `).join('')}
-        </tbody>
-      </table>
-      
-      <div style="display: flex; justify-content: space-between; border-top: 2px solid #c68642; padding-top: 12px; margin-bottom: 25px;">
-        <span style="font-weight: bold; color: #c68642; font-size: 16px;">مجموع کل:</span>
-        <span style="font-weight: bold; color: #c68642; font-size: 16px;">${totalPrice.toLocaleString()} تومان</span>
-      </div>
-      
-      <div style="text-align: center; background: #fef3c7; padding: 12px; border-radius: 10px; margin-bottom: 20px;">
-        <p style="color: #c68642; font-weight: bold; margin: 5px 0; font-size: 14px;">❤️ از خرید شما متشکریم ❤️</p>
-        <p style="color: #666; font-size: 12px; margin: 5px 0;">امیدواریم دوباره شما را در کافه قهوه ببینیم</p>
-      </div>
-
-      <div style="text-align: center; margin-top: 25px; padding-top: 15px; border-top: 1px solid #eee;">
-        <p style="color: #999; font-size: 10px;">کافه قهوه - بهترین طعم‌ها در کنار شما</p>
-      </div>
-    `;
-
-    document.body.appendChild(element);
-    
-    try {
-      const canvas = await html2canvas(element, {
-        scale: 2,
-        backgroundColor: '#ffffff',
-        logging: false,
-        useCORS: true
-      });
-      
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const imgWidth = 210;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      
-      pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-      pdf.save(`فاکتور-${Date.now()}.pdf`);
-      
-      showNotification("فاکتور با موفقیت دانلود شد", "success");
-    } catch (error) {
-      console.error("PDF Error:", error);
-      showNotification("خطا در ایجاد فاکتور: " + error.message, "error");
-    } finally {
-      document.body.removeChild(element);
+  const getSizeName = (size) => {
+    if (!size) return "";
+    switch(size) {
+      case "small": return "کوچک";
+      case "medium": return "متوسط";
+      case "large": return "بزرگ";
+      default: return "";
     }
   };
 
+  const getAddonsText = (addonsNames) => {
+    if (!addonsNames || addonsNames.length === 0) return "-";
+    return addonsNames.join(" + ");
+  };
+
+  const element = document.createElement('div');
+  element.style.width = '800px';
+  element.style.padding = '30px';
+  element.style.backgroundColor = 'white';
+  element.style.direction = 'rtl';
+  element.style.fontFamily = 'Vazirmatn, Vazir, system-ui, sans-serif';
+  element.style.position = 'absolute';
+  element.style.left = '-9999px';  // فقط این خط اضافه شد (مخفی کردن)
+  element.style.top = '-9999px';   // فقط این خط اضافه شد (مخفی کردن)
+  
+  element.innerHTML = `
+    <div style="text-align: center; border-bottom: 2px solid #c68642; padding-bottom: 15px; margin-bottom: 25px;">
+      <img src="/images/logo.webp" style="width: 180px; margin-bottom: 10px;" />
+      <p style="color: #666; margin: 0; font-size: 16px;">فاکتور خرید</p>
+    </div>
+    
+    <div style="background: #f5f5f5; padding: 15px; border-radius: 10px; margin-bottom: 25px;">
+      <p style="margin: 8px 0; font-size: 14px;">📅 تاریخ: ${new Date().toLocaleDateString('fa-IR')}</p>
+      <p style="margin: 8px 0; font-size: 14px;">⏰ زمان ثبت: ${timeString}</p>
+      <p style="margin: 8px 0; font-size: 14px;">🧾 شماره سفارش: #${Math.floor(Math.random() * 100000)}</p>
+      <p style="margin: 8px 0; font-size: 14px;">👤 مشتری: ${user?.name || "مهمان عزیز"}</p>
+      <p style="margin: 8px 0; font-size: 14px;">📊 وضعیت سفارش: تکمیل شده ✅</p>
+      <p style="margin: 8px 0; font-size: 14px;">💳 روش پرداخت: نقدی</p>
+    </div>
+    
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px;">
+      <thead>
+        <tr style="background: #c68642; color: white;">
+          <th style="padding: 10px; text-align: center; font-size: 14px;">نام محصول</th>
+          <th style="padding: 10px; text-align: center; font-size: 14px;">سایز</th>
+          <th style="padding: 10px; text-align: center; font-size: 14px;">تعداد</th>
+          <th style="padding: 10px; text-align: center; font-size: 14px;">قیمت واحد</th>
+          <th style="padding: 10px; text-align: center; font-size: 14px;">مجموع</th>
+          <th style="padding: 10px; text-align: center; font-size: 14px;">افزودنی‌ها</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${cart.map(item => `
+          <tr style="border-bottom: 1px solid #ddd;">
+            <td style="padding: 8px; text-align: center; font-size: 13px;">${item.name}${item.size ? ` (${getSizeName(item.size)})` : ''}${item.isLucky ? ' 🎲' : ''}${item.isCustom ? ' 🎨' : ''}</td>
+            <td style="padding: 8px; text-align: center; font-size: 13px;">${item.size ? getSizeName(item.size) : '-'}</td>
+            <td style="padding: 8px; text-align: center; font-size: 13px;">${item.quantity}</td>
+            <td style="padding: 8px; text-align: center; font-size: 13px;">${item.price.toLocaleString()} تومان</td>
+            <td style="padding: 8px; text-align: center; font-size: 13px;">${(item.price * item.quantity).toLocaleString()} تومان</td>
+            <td style="padding: 8px; text-align: center; font-size: 13px;">${getAddonsText(item.addonsNames)}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+    
+    <div style="display: flex; justify-content: space-between; border-top: 2px solid #c68642; padding-top: 12px; margin-bottom: 25px;">
+      <span style="font-weight: bold; color: #c68642; font-size: 16px;">مجموع کل:</span>
+      <span style="font-weight: bold; color: #c68642; font-size: 16px;">${totalPrice.toLocaleString()} تومان</span>
+    </div>
+    
+    <div style="text-align: center; background: #fef3c7; padding: 12px; border-radius: 10px; margin-bottom: 20px;">
+      <p style="color: #c68642; font-weight: bold; margin: 5px 0; font-size: 14px;">❤️ از خرید شما متشکریم ❤️</p>
+      <p style="color: #666; font-size: 12px; margin: 5px 0;">امیدواریم دوباره شما را در کافه قهوه ببینیم</p>
+    </div>
+
+    <div style="text-align: center; margin-top: 25px; padding-top: 15px; border-top: 1px solid #eee;">
+      <p style="color: #999; font-size: 10px;">کافه قهوه - بهترین طعم‌ها در کنار شما</p>
+    </div>
+  `;
+
+  document.body.appendChild(element);
+  
+  try {
+    const canvas = await html2canvas(element, {
+      scale: 2,
+      backgroundColor: '#ffffff',
+      logging: false,
+      useCORS: true
+    });
+    
+    const imgData = canvas.toDataURL('image/png');
+    const pdf = new jsPDF('p', 'mm', 'a4');
+    const imgWidth = 210;
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+    
+    pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+    pdf.save(`فاکتور-${Date.now()}.pdf`);
+    
+    showNotification("فاکتور با موفقیت دانلود شد", "success");
+  } catch (error) {
+    console.error("PDF Error:", error);
+    showNotification("خطا در ایجاد فاکتور: " + error.message, "error");
+  } finally {
+    document.body.removeChild(element);
+  }
+};
   const renderPage = () => {
     switch(activePage) {
       case "menu": 
@@ -318,13 +304,15 @@ function AppContent() {
 
   return (
     <div className={`app-container ${darkMode ? 'dark-mode' : 'light-mode'}`}>
-      {!isAdminRoute && <FloatingCoffeeBeans />}
+      <FloatingCoffeeBeans />
       
       <div className="dark-mode-toggle">
         <button className="dark-mode-btn" onClick={toggleDarkMode}>
           {darkMode ? '☀️' : '🌙'}
         </button>
       </div>
+
+
 
       {notification.show && (
         <div className="notification-overlay">
@@ -360,35 +348,18 @@ function AppContent() {
         </div>
       )}
 
-      {!isAdminRoute && !showModal && !showCart && !showFunMenu && !showLuckyModal && !showBuildModal && !showTimeline && (
-        <Header 
-          totalItems={totalItems}
-          onCartClick={() => setShowCart(true)}
-          activePage={activePage}
-          onPageChange={setActivePage}
-          onFunMenuClick={handleFunMenuClick}
-        />
-      )}
+      {!showModal && !showCart && !showFunMenu && !showLuckyModal && !showBuildModal && !showTimeline && (
+  <Header 
+    totalItems={totalItems}
+    onCartClick={() => setShowCart(true)}
+    activePage={activePage}
+    onPageChange={setActivePage}
+    onFunMenuClick={handleFunMenuClick}
+  />
+)}
 
       <main className="main-content">
-        <Routes>
-          <Route path="/" element={renderPage()} />
-          <Route path="/login" element={<Login />} />
-          
-            <Route
-              path="/admin"
-              element={
-                <ProtectedRoute requiredRole="admin">
-                  <AdminLayout darkMode={darkMode} />
-                </ProtectedRoute>
-              }
-            >
-            <Route index element={<Dashboard />} />
-            <Route path="products" element={<Products />} />
-            <Route path="orders" element={<Orders />} />
-            <Route path="settings" element={<Settings />} />
-          </Route>
-        </Routes>
+        {renderPage()}
         <footer className="footer">
           <p>© 2025 کافه قهوه - تمام حقوق محفوظ است</p>
         </footer>
@@ -419,10 +390,11 @@ function AppContent() {
         <Timeline 
           orderStatus={orderStatus}
           progress={progress}
-          onClose={() => setShowTimeline(false)}
+          onClose={() => setShowTimeline(false)}  // این خط رو اضافه کن
         />
       )}
 
+      {/* مودال منوی سرگرمی */}
       {showFunMenu && (
         <FunMenuModal 
           onClose={() => setShowFunMenu(false)}
@@ -431,6 +403,7 @@ function AppContent() {
         />
       )}
 
+      {/* مودال قهوه شانس */}
       {showLuckyModal && (
         <LuckyCoffeeModal 
           onClose={() => setShowLuckyModal(false)}
@@ -438,23 +411,15 @@ function AppContent() {
         />
       )}
 
-      {showBuildModal && (
-        <BuildCoffeeModal 
-          onClose={() => setShowBuildModal(false)}
-          addToCart={addToCart}
-        />
-      )}
+      {/* مودال قهوه‌ات رو بساز */}
+          
+    {showBuildModal && (
+  <BuildCoffeeModal 
+    onClose={() => setShowBuildModal(false)}
+    addToCart={addToCart}
+  />
+)}
     </div>
-  );
-}
-
-function App() {
-  return (
-    <AuthProvider>
-      <BrowserRouter>
-        <AppContent />
-      </BrowserRouter>
-    </AuthProvider>
   );
 }
 
