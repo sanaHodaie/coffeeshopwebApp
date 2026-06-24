@@ -3,21 +3,20 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-
   "homepage": "https://sanahodaie.github.io/coffeeshopwebApp",
-
   "scripts": {
     "dev": "vite",
-  "build": "vite build",
-  "preview": "vite preview",
-  "predeploy": "npm run build",
-  "deploy": "gh-pages -d dist"
+    "build": "vite build",
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
-
   "dependencies": {
     "@react-pdf/renderer": "^4.5.1",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.6.1",
+    "@tailwindcss/vite": "^4.3.1",
+    "clsx": "^2.1.1",
     "framer-motion": "^12.40.0",
     "html2canvas": "^1.4.1",
     "jspdf": "^4.2.1",
@@ -25,9 +24,11 @@
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "react-router-dom": "^7.16.0",
+    "tailwind": "^4.0.0",
+    "tailwind-merge": "^3.6.0",
+    "tailwinds": "^0.0.0",
     "three": "^0.184.0"
   },
-
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/react": "^19.2.14",
