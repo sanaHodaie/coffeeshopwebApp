@@ -8,19 +8,13 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const stored = localStorage.getItem('user');
-    if (stored) {
-      try {
-        setUser(JSON.parse(stored));
-      } catch {
-        localStorage.removeItem('user');
-      }
-    }
+    if (stored) setUser(JSON.parse(stored));
     setLoading(false);
   }, []);
 
-  const login = (userData) => {
-    setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData));
+  const login = (data) => {
+    setUser(data);
+    localStorage.setItem('user', JSON.stringify(data));
   };
 
   const logout = () => {

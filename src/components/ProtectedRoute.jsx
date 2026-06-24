@@ -5,20 +5,11 @@ export default function ProtectedRoute({ children, requiredRole }) {
   const { user, loading } = useAuth();
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-amber-800 text-xl">⏳ در حال بارگذاری...</div>
-      </div>
-    );
+    return <div className="min-h-screen flex items-center justify-center">⏳ Loading...</div>;
   }
 
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
-
-  if (requiredRole && user.role !== requiredRole) {
-    return <Navigate to="/" replace />;
-  }
+  if (!user) return <Navigate to="/login" replace />;
+  if (requiredRole && user.role !== requiredRole) return <Navigate to="/" replace />;
 
   return children;
 }

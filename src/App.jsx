@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext';
-import ProtectedRoute from './components/ProtectedRoute';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { AuthProvider } from "./contexts/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 // صفحات عمومی
 import HomePage from "./components/Pages/HomePage";
 import MenuPage from "./components/Pages/MenuPage";
 import ContactPage from "./components/Pages/ContactPage";
 import AboutPage from "./components/Pages/AboutPage";
-import Login from './pages/Login';
+import Login from "./components/Pages/Login";
 
 // کامپوننت‌های اصلی
 import Header from "./components/Header";
@@ -23,16 +23,19 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
 // صفحات ادمین
-import AdminLayout from './layouts/AdminLayout';
-import Dashboard from './pages/admin/Dashboard';
-import Products from './pages/admin/Products';
-import Orders from './pages/admin/Orders';
-import Settings from './pages/admin/Settings';
+import AdminLayout from "./layouts/AdminLayout";
+import Dashboard from "./components/admin/Dashboard";
+import Products from "./components/admin/Products";
+import Orders from "./components/admin/Orders";
+import Settings from "./components/admin/Settings";
 
 import { products } from "./data/products";
 import "./App.css";
 
-function App() {
+function AppContent() {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin') || location.pathname.startsWith('/login');
+  
   const [cart, setCart] = useState(() => {
     const savedCart = localStorage.getItem("cart");
     return savedCart ? JSON.parse(savedCart) : [];
@@ -54,12 +57,10 @@ function App() {
   const [showTimeline, setShowTimeline] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   
-  // State های جدید برای منوی سرگرمی
   const [showFunMenu, setShowFunMenu] = useState(false);
   const [showLuckyModal, setShowLuckyModal] = useState(false);
   const [showBuildModal, setShowBuildModal] = useState(false);
 
-  // اسکرول به بالا
   useEffect(() => {
     const handleScroll = () => {
       setShowScrollTop(window.scrollY > 300);
@@ -164,7 +165,6 @@ function App() {
     setShowModal(true);
   };
 
-  // توابع منوی سرگرمی
   const handleFunMenuClick = () => {
     setShowFunMenu(true);
   };
@@ -179,7 +179,6 @@ function App() {
     setShowBuildModal(true);
   };
 
-  // تابع دانلود PDF
   const downloadPDF = async () => {
     if (cart.length === 0) {
       showNotification("سبد خرید خالی است!", "error");
@@ -319,7 +318,7 @@ function App() {
 
   return (
     <div className={`app-container ${darkMode ? 'dark-mode' : 'light-mode'}`}>
-      <FloatingCoffeeBeans />
+      {!isAdminRoute && <FloatingCoffeeBeans />}
       
       <div className="dark-mode-toggle">
         <button className="dark-mode-btn" onClick={toggleDarkMode}>
@@ -361,7 +360,7 @@ function App() {
         </div>
       )}
 
-      {!showModal && !showCart && !showFunMenu && !showLuckyModal && !showBuildModal && !showTimeline && (
+      {!isAdminRoute && !showModal && !showCart && !showFunMenu && !showLuckyModal && !showBuildModal && !showTimeline && (
         <Header 
           totalItems={totalItems}
           onCartClick={() => setShowCart(true)}
@@ -372,7 +371,24 @@ function App() {
       )}
 
       <main className="main-content">
-        {renderPage()}
+        <Routes>
+          <Route path="/" element={renderPage()} />
+          <Route path="/login" element={<Login />} />
+          
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute requiredRole="admin">
+                  <AdminLayout darkMode={darkMode} />
+                </ProtectedRoute>
+              }
+            >
+            <Route index element={<Dashboard />} />
+            <Route path="products" element={<Products />} />
+            <Route path="orders" element={<Orders />} />
+            <Route path="settings" element={<Settings />} />
+          </Route>
+        </Routes>
         <footer className="footer">
           <p>© 2025 کافه قهوه - تمام حقوق محفوظ است</p>
         </footer>
@@ -407,7 +423,6 @@ function App() {
         />
       )}
 
-      {/* مودال منوی سرگرمی */}
       {showFunMenu && (
         <FunMenuModal 
           onClose={() => setShowFunMenu(false)}
@@ -416,7 +431,6 @@ function App() {
         />
       )}
 
-      {/* مودال قهوه شانس */}
       {showLuckyModal && (
         <LuckyCoffeeModal 
           onClose={() => setShowLuckyModal(false)}
@@ -424,7 +438,6 @@ function App() {
         />
       )}
 
-      {/* مودال قهوه‌ات رو بساز */}
       {showBuildModal && (
         <BuildCoffeeModal 
           onClose={() => setShowBuildModal(false)}
@@ -432,6 +445,16 @@ function App() {
         />
       )}
     </div>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+        <AppContent />
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

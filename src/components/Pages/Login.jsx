@@ -1,6 +1,8 @@
+
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
+import './Login.css';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -15,7 +17,6 @@ export default function Login() {
     setError('');
     setLoading(true);
 
-    // شبیه‌سازی درخواست به سرور
     setTimeout(() => {
       if (email === 'admin@cafe.com' && password === 'admin123') {
         login({ email, name: 'مدیر کافه', role: 'admin' });
@@ -28,56 +29,48 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-amber-50 via-stone-100 to-amber-100 p-4">
-      <div className="w-full max-w-md">
-        <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl p-8 border border-amber-200/50">
-          <div className="text-center mb-8">
-            <div className="text-5xl mb-2">☕</div>
-            <h1 className="text-3xl font-bold text-amber-800">کافه قهوه</h1>
-            <p className="text-stone-500 mt-1">ورود به پنل مدیریت</p>
+    <div className="login-page">
+      <div className="login-container">
+        <div className="login-card">
+          <div className="login-header">
+            <div className="login-icon">☕</div>
+            <h1 className="login-title">کافه قهوه</h1>
+            <p className="login-subtitle">ورود به پنل مدیریت</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
-            {error && (
-              <div className="bg-red-50 text-red-600 p-3 rounded-xl text-sm text-center border border-red-200">
-                {error}
-              </div>
-            )}
+          <form onSubmit={handleSubmit} className="login-form">
+            {error && <div className="login-error">{error}</div>}
 
-            <div>
-              <label className="block text-sm font-medium text-amber-800 mb-1">📧 ایمیل</label>
+            <div className="form-group">
+              <label className="form-label">📧 ایمیل</label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-stone-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition"
+                className="form-input"
                 placeholder="admin@cafe.com"
                 required
               />
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-amber-800 mb-1">🔒 رمز عبور</label>
+            <div className="form-group">
+              <label className="form-label">🔒 رمز عبور</label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-stone-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition"
+                className="form-input"
                 placeholder="••••••••"
                 required
               />
             </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-gradient-to-r from-amber-700 to-amber-800 hover:from-amber-800 hover:to-amber-900 text-white font-bold py-3 rounded-xl transition-all shadow-lg shadow-amber-700/30 disabled:opacity-70 disabled:cursor-not-allowed"
-            >
+            <button type="submit" disabled={loading} className="login-btn">
               {loading ? '⏳ در حال ورود...' : '🚪 ورود به پنل ادمین'}
             </button>
           </form>
 
-          <div className="mt-6 text-center text-xs text-stone-400">
+          <div className="login-footer">
             <p>برای تست: admin@cafe.com | admin123</p>
           </div>
         </div>
