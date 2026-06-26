@@ -13,5 +13,9 @@
     
 
     <script type="module" src="/src/main.jsx"></script>
+    <script>
+      const path = window.location.pathname.replace(/\/REPO_NAME/, '');
+      window.location.href = '/REPO_NAME/#!' + path;
+    </script>
   </body>
 </html>
