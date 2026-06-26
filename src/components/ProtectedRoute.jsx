@@ -1,15 +1,17 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
-export default function ProtectedRoute({ children, requiredRole }) {
-  const { user, loading } = useAuth();
+export default function ProtectedRoute({ children }) {
+  const { user } = useAuth();
 
-  if (loading) {
-    return <div className="min-h-screen flex items-center justify-center">⏳ Loading...</div>;
+  if (!user) {
+    return <Navigate to="/admin-login" replace />;
   }
-
-  if (!user) return <Navigate to="/login" replace />;
-  if (requiredRole && user.role !== requiredRole) return <Navigate to="/" replace />;
 
   return children;
 }

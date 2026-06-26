@@ -1,0 +1,56 @@
+/* ConfirmModal.css */
+.modal-icon.warning {
+  filter: drop-shadow(0 4px 10px rgba(245, 158, 11, 0.25));
+}
+
+.confirm-btn-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.confirm-btn {
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.7rem 1.75rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  border: none;
+}
+
+.confirm-btn.delete {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+}
+
+.confirm-btn.delete:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(239, 68, 68, 0.4);
+}
+
+.confirm-btn.cancel {
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.dark-mode .confirm-btn.cancel {
+  background: #334155;
+  color: #cbd5e1;
+}
+
+.confirm-btn.cancel:hover {
+  background: #cbd5e1;
+  transform: translateY(-2px);
+}
+
+.dark-mode .confirm-btn.cancel:hover {
+  background: #475569;
+}
+
+.confirm-btn:active {
+  transform: translateY(0);
+}

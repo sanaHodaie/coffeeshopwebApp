@@ -1,0 +1,355 @@
+/* Sidebar.css - نسخه RTL با پشتیبانی کامل لایت/دارک مود */
+
+/* ===== سایدبار اصلی ===== */
+.sidebar-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 270px;
+  background: rgba(255, 248, 239, 0.95); /* لایت مود: روشن */
+  backdrop-filter: blur(20px);
+  border-left: 1px solid rgba(180, 118, 52, 0.15);
+  border-right: none;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+  transform: translateX(0);
+}
+
+.dark-mode .sidebar-container {
+  background: linear-gradient(135deg, rgb(105, 99, 97), rgb(45, 26, 17), rgb(118, 86, 66));; /* دارک مود: تیره */
+  border-left-color: rgba(198, 134, 66, 0.2);
+}
+
+/* ===== سایدبار جمع‌شده (تبلت) ===== */
+.sidebar-container.collapsed {
+  width: 72px;
+}
+
+.sidebar-container.collapsed .logo-text,
+.sidebar-container.collapsed .link-label,
+.sidebar-container.collapsed .user-details,
+.sidebar-container.collapsed .logout-text {
+  display: none;
+}
+
+.sidebar-container.collapsed .sidebar-link-btn {
+  justify-content: center;
+  padding: 12px;
+}
+
+.sidebar-container.collapsed .link-content {
+  justify-content: center;
+}
+
+.sidebar-container.collapsed .user-profile {
+  justify-content: center;
+}
+
+.sidebar-container.collapsed .logout-btn {
+  justify-content: center;
+}
+
+/* ===== سایدبار موبایل ===== */
+@media (max-width: 767px) {
+  .sidebar-container {
+    width: 280px;
+    transform: translateX(100%);
+    right: 0;
+    border-left: 1px solid rgba(141, 27, 27, 0.15);
+  }
+
+  .sidebar-container.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-container:not(.open) {
+    transform: translateX(100%);
+  }
+}
+
+/* ===== تبلت (768-1024px) ===== */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .sidebar-container {
+    width: 72px;
+    right: 0;
+  }
+
+  .sidebar-container .logo-text,
+  .sidebar-container .link-label,
+  .sidebar-container .user-details,
+  .sidebar-container .logout-text {
+    display: none;
+  }
+
+  .sidebar-container .sidebar-link-btn {
+    justify-content: center;
+    padding: 12px;
+  }
+
+  .sidebar-container .link-content {
+    justify-content: center;
+  }
+
+  .sidebar-container .user-profile {
+    justify-content: center;
+  }
+
+  .sidebar-container .logout-btn {
+    justify-content: center;
+  }
+}
+
+/* ===== دسکتاپ (> 1024px) ===== */
+@media (min-width: 1024px) {
+  .sidebar-container {
+    width: 270px;
+    right: 0;
+    transform: translateX(0);
+  }
+}
+
+/* ===== هدر سایدبار ===== */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid rgba(198, 134, 66, 0.1);
+  flex-shrink: 0;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  font-size: 28px;
+  animation: logoSpin 8s linear infinite;
+}
+
+@keyframes logoSpin {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-5deg); }
+  75% { transform: rotate(5deg); }
+}
+
+/* لایت مود */
+.logo-text {
+  font-size: 18px;
+  font-weight: 700;
+  color: #3d2619;
+  letter-spacing: -0.5px;
+  white-space: nowrap;
+}
+
+/* دارک مود */
+.dark-mode .logo-text {
+  color: #f5f0eb;
+}
+
+.close-sidebar-btn {
+  background: none;
+  border: none;
+  color: #8b7364;
+  cursor: pointer;
+  padding: 4px;
+  transition: color 0.3s ease;
+}
+
+.close-sidebar-btn:hover {
+  color: #f8bc99;
+}
+
+.dark-mode .close-sidebar-btn:hover {
+  color: #f5f0eb;
+}
+
+/* ===== منو ===== */
+.sidebar-nav {
+  flex: 1;
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow-y: auto;
+}
+
+/* لایت مود - لینک‌ها */
+.sidebar-link-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: transparent;
+  border: none;
+  color: #6e5241; /* لایت مود: قهوه‌ای روشن */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  position: relative;
+  font-size: 14px;
+  text-align: right;
+}
+
+.sidebar-link-btn:hover {
+  background: rgba(198, 134, 66, 0.1);
+  color: #3d2619;
+}
+
+.sidebar-link-btn.active {
+  background: linear-gradient(135deg, rgba(198, 134, 66, 0.2), rgba(139, 90, 43, 0.15));
+  color: #8b5a2b;
+}
+
+/* دارک مود - لینک‌ها */
+.dark-mode .sidebar-link-btn {
+  color: #f2e5de; /* دارک مود: خاکستری روشن */
+}
+
+.dark-mode .sidebar-link-btn:hover {
+  background: rgba(198, 134, 66, 0.1);
+  color: #f5f0eb;
+}
+
+.dark-mode .sidebar-link-btn.active {
+  background: linear-gradient(135deg, rgba(198, 134, 66, 0.25), rgba(139, 90, 43, 0.2));
+  color: #c68642;
+}
+
+.link-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.link-icon {
+  flex-shrink: 0;
+}
+
+.link-label {
+  white-space: nowrap;
+}
+
+/* نشانگر فعال - برای هر دو مود */
+.active-indicator {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 24px;
+  background: linear-gradient(180deg, #c68642, #8b5a2b);
+  border-radius: 0 4px 4px 0;
+}
+
+/* ===== فوتر سایدبار ===== */
+.sidebar-footer {
+  padding: 16px 20px;
+  border-top: 1px solid rgba(198, 134, 66, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c68642, #8b5a2b);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+/* لایت مود - اطلاعات کاربر */
+.user-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #3d2619;
+  white-space: nowrap;
+}
+
+.user-role {
+  font-size: 11px;
+  color: #8b7364;
+  white-space: nowrap;
+}
+
+/* دارک مود - اطلاعات کاربر */
+.dark-mode .user-name {
+  color: #f5f0eb;
+}
+
+.dark-mode .user-role {
+  color: #8b7364;
+}
+
+/* دکمه خروج - لایت مود */
+.logout-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.15);
+  border-radius: 8px;
+  color: #dc2626;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 13px;
+  width: 100%;
+}
+
+.logout-btn:hover {
+  background: rgba(239, 68, 68, 0.15);
+  transform: scale(1.02);
+}
+
+/* دارک مود - دکمه خروج */
+.dark-mode .logout-btn {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+}
+
+.dark-mode .logout-btn:hover {
+  background: rgba(239, 68, 68, 0.2);
+}
+
+/* ===== اسکرول بار سفارشی ===== */
+.sidebar-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-container::-webkit-scrollbar-thumb {
+  background: rgba(198, 134, 66, 0.3);
+  border-radius: 4px;
+}
+
+.sidebar-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(198, 134, 66, 0.5);
+}

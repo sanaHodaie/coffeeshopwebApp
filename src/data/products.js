@@ -7,9 +7,9 @@ export const products = [
     description: "اسپرسو کلاسیک ایتالیایی با کرم طلایی غلیظ",
     image: "/images/Espresso.webp",
     category: "hot",
-    categoryName: "قهوه گرم"
+    categoryName: "قهوه گرم",
+    status: "active"  // ← اضافه شد
   },
-
   {
     id: 2,
     name: "آیس لاته",
@@ -18,10 +18,9 @@ export const products = [
     description: "انرژی خنک برای روزهای گرم",
     image: "/images/iced-latte.webp",
     category: "cold",
-    categoryName: "قهوه سرد"
+    categoryName: "قهوه سرد",
+    status: "active"  // ← اضافه شد
   },
-
-
   {
     id: 3,
     name: "آیس موکا",
@@ -30,32 +29,31 @@ export const products = [
     description: "ترکیب شکلات و قهوه سرد",
     image: "/images/iced-mocha.webp",
     category: "cold",
-    categoryName: "قهوه سرد"
+    categoryName: "قهوه سرد",
+    status: "active"  // ← اضافه شد
   },
-
-
   {
-    id:4,
+    id: 4,
     name: "کاپوچینو",
     price: 48000,
     ingredients: "اسپرسو، شیر، فوم غلیظ",
     description: "کلاسیک محبوب با فوم مخملی",
     image: "/images/capochino.webp",
     category: "hot",
-    categoryName: "قهوه گرم"
+    categoryName: "قهوه گرم",
+    status: "active"  // ← اضافه شد
   },
   {
-  id:5,
-  name: "قهوه ترک",
-  price: 45000,
-  ingredients: "دم‌کنی مسی، قهوه ترک، هل، آب، شکر (دلخواه)",
-  description: "قهوه اصیل ترکی با طعم بینظیر و کف غلیظ",
-  image: "/images/turkcoffee.webp",
-  
-  category: "hot",
-  categoryName: "قهوه گرم"
-},
-  
+    id: 5,
+    name: "قهوه ترک",
+    price: 45000,
+    ingredients: "دم‌کنی مسی، قهوه ترک، هل، آب، شکر (دلخواه)",
+    description: "قهوه اصیل ترکی با طعم بینظیر و کف غلیظ",
+    image: "/images/turkcoffee.webp",
+    category: "hot",
+    categoryName: "قهوه گرم",
+    status: "active"  // ← اضافه شد
+  },
   {
     id: 6,
     name: "موکا",
@@ -64,23 +62,20 @@ export const products = [
     description: "ترکیب بهشت قهوه و شکلات",
     image: "/images/moka.webp",
     category: "hot",
-    categoryName: "قهوه گرم"
+    categoryName: "قهوه گرم",
+    status: "active"  // ← اضافه شد
   },
-
-
   {
-  id: 7,
-  name: "هورچاتا لاته یخی",
-  price: 65000,
-  ingredients: "شیر برنج، دارچین، وانیل، اسپرسو، یخ، شیر",
-  description: "نوشیدنی مکزیکی با طعم شیر برنج و دارچین، ترکیب شده با اسپرسو",
-  image: "/images/horchata-latte.webp",
-  
-  category: "cold",
-  categoryName: "قهوه سرد"
-},
-  
-  
+    id: 7,
+    name: "هورچاتا لاته یخی",
+    price: 65000,
+    ingredients: "شیر برنج، دارچین، وانیل، اسپرسو، یخ، شیر",
+    description: "نوشیدنی مکزیکی با طعم شیر برنج و دارچین، ترکیب شده با اسپرسو",
+    image: "/images/horchata-latte.webp",
+    category: "cold",
+    categoryName: "قهوه سرد",
+    status: "active"  // ← اضافه شد
+  },
   {
     id: 8,
     name: "فراپه",
@@ -89,18 +84,20 @@ export const products = [
     description: "نوشیدنی یخی یونانی با طعم بینظیر",
     image: "/images/frappe.webp",
     category: "cold",
-    categoryName: "قهوه سرد"
+    categoryName: "قهوه سرد",
+    status: "active"  // ← اضافه شد
   },
   {
-  id: 9,
-  name: "کورتادو",
-  price: 52000,
-  ingredients: "اسپرسو دابل، شیر بخار داده شده (نسبت ۱:۱)",
-  description: "قهوه اسپانیایی با تعادل عالی بین اسپرسو و شیر",
-  image: "/images/cortado.webp",
-  category: "hot",
-  categoryName: "قهوه گرم"
-},
+    id: 9,
+    name: "کورتادو",
+    price: 52000,
+    ingredients: "اسپرسو دابل، شیر بخار داده شده (نسبت ۱:۱)",
+    description: "قهوه اسپانیایی با تعادل عالی بین اسپرسو و شیر",
+    image: "/images/cortado.webp",
+    category: "hot",
+    categoryName: "قهوه گرم",
+    status: "active"  // ← اضافه شد
+  },
   {
     id: 10,
     name: "چیزکیک",
@@ -109,7 +106,8 @@ export const products = [
     description: "چیزکیک کلاسیک با طعم بینظیر",
     image: "/images/cheeseCake.webp",
     category: "dessert",
-    categoryName: "شیرینی"
+    categoryName: "شیرینی",
+    status: "active"  // ← اضافه شد
   },
   {
     id: 11,
@@ -119,7 +117,8 @@ export const products = [
     description: "براونی شکلاتی نرم و لذیذ",
     image: "/images/brownie.webp",
     category: "dessert",
-    categoryName: "شیرینی"
+    categoryName: "شیرینی",
+    status: "active"  // ← اضافه شد
   },
   {
     id: 12,
@@ -129,6 +128,7 @@ export const products = [
     description: "کروسان تازه و خانگی",
     image: "/images/croissant.webp",
     category: "dessert",
-    categoryName: "شیرینی"
+    categoryName: "شیرینی",
+    status: "active"  
   }
 ];

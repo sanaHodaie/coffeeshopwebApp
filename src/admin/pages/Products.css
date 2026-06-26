@@ -1,0 +1,183 @@
+/* Products.css */
+.products-page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.page-header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.add-new-btn {
+  background: linear-gradient(135deg, #c68642, #8b5a2b);
+  color: white;
+  border: none;
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 700;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(198, 134, 66, 0.3);
+}
+
+.add-new-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(198, 134, 66, 0.45);
+}
+
+/* بند انگشتی تصاویر */
+.product-thumbnail-img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  border: 1.5px solid rgba(198, 134, 66, 0.2);
+}
+
+.product-info-cell {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-cell-name {
+  font-size: 0.95rem;
+  color: #3d2619;
+}
+
+.dark-mode .product-cell-name {
+  color: #fff8ef;
+}
+
+.product-cell-desc {
+  max-width: 200px;
+}
+
+/* چیپس دسته‌بندی */
+.category-badge-chip {
+  background: rgba(198, 134, 66, 0.08);
+  color: #8b5a2b;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  display: inline-block;
+  border: 1px solid rgba(198, 134, 66, 0.15);
+}
+
+.dark-mode .category-badge-chip {
+  background: rgba(198, 134, 66, 0.15);
+  color: #e8c59c;
+}
+
+/* دکمه‌های وضعیت نمایش */
+.status-btn-pill {
+  border: none;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.status-btn-pill.active {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.1);
+}
+
+.status-btn-pill.active:hover {
+  background: rgba(16, 185, 129, 0.18);
+}
+
+.status-btn-pill.inactive {
+  background: rgba(100, 116, 139, 0.1);
+  color: #64748b;
+  border: 1px solid rgba(100, 116, 139, 0.15);
+}
+
+.status-btn-pill.inactive:hover {
+  background: rgba(100, 116, 139, 0.18);
+}
+
+/* گروه دکمه‌های عملیات */
+.action-button-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.action-icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 0.5rem;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.action-icon-btn.edit-btn {
+  background: rgba(198, 134, 66, 0.08);
+  color: #c68642;
+  border: 1px solid rgba(198, 134, 66, 0.15);
+}
+
+.action-icon-btn.edit-btn:hover {
+  background: #c68642;
+  color: white;
+  transform: translateY(-1px);
+}
+
+.action-icon-btn.delete-btn {
+  background: rgba(239, 68, 68, 0.08);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.15);
+}
+
+.action-icon-btn.delete-btn:hover {
+  background: #ef4444;
+  color: white;
+  transform: translateY(-1px);
+}
+
+/* دراپ داون دسته‌بندی بالای جدول */
+.category-select-dropdown {
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(198, 134, 66, 0.25);
+  color: #5a3a1f;
+  font-family: inherit;
+  font-size: 0.88rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.85rem;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.dark-mode .category-select-dropdown {
+  background: rgba(28, 15, 10, 0.4);
+  border-color: rgba(198, 134, 66, 0.2);
+  color: #f5f0eb;
+}
+
+.category-select-dropdown:focus {
+  border-color: #c68642;
+  box-shadow: 0 0 0 3px rgba(198, 134, 66, 0.15);
+}

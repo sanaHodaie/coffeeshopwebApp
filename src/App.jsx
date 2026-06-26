@@ -1,5 +1,13 @@
 import { useState, useEffect } from "react";
-import { products } from "./data/products";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import ProtectedRoute from "./components/ProtectedRoute";
+import AdminLayout from './admin/layouts/AdminLayout';
+import Dashboard from './admin/pages/Dashboard';
+import Products from './admin/pages/Products';
+import Orders from './admin/pages/Orders';
+import Settings from './admin/pages/Settings';
+import Login from "./pages/Login";
 import Header from "./components/Header";
 import MenuPage from "./components/Pages/MenuPage";
 import HomePage from "./components/Pages/HomePage";
@@ -12,12 +20,12 @@ import FloatingCoffeeBeans from "./components/FloatingCoffeeBeans";
 import FunMenuModal from "./components/FunMenuModal";
 import LuckyCoffeeModal from "./components/LuckyCoffeeModal";
 import BuildCoffeeModal from "./components/BuildCoffeeModal";
+import { useProducts } from './hooks/useProducts';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-
 import "./App.css";
 
-function App() {
+function AppContent() {
   const [cart, setCart] = useState(() => {
     const savedCart = localStorage.getItem("cart");
     return savedCart ? JSON.parse(savedCart) : [];
@@ -38,12 +46,33 @@ function App() {
   const [progress, setProgress] = useState(0);
   const [showTimeline, setShowTimeline] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const { products, setProducts } = useProducts();
   
   // State های جدید برای منوی سرگرمی
   const [showFunMenu, setShowFunMenu] = useState(false);
   const [showLuckyModal, setShowLuckyModal] = useState(false);
   const [showBuildModal, setShowBuildModal] = useState(false);
 
+
+
+
+  // حذف و افزودن محصولات
+
+      useEffect(() => {
+        const handleStorageChange = (e) => {
+          if (e.key === 'coffee_shop_products') {
+            const stored = localStorage.getItem('coffee_shop_products');
+            if (stored) {
+              setProducts(JSON.parse(stored));
+            }
+          }
+        };
+        
+        window.addEventListener('storage', handleStorageChange);
+        return () => window.removeEventListener('storage', handleStorageChange);
+      }, [setProducts]);
+
+  // 
   // اسکرول به بالا
   useEffect(() => {
     const handleScroll = () => {
@@ -171,7 +200,6 @@ const downloadPDF = async () => {
     return;
   }
 
-  // فقط همین خط اضافه شد (قبل از هر چیزی)
   showNotification("در حال آماده‌سازی فاکتور... ☕", "info");
 
   const now = new Date();
@@ -199,8 +227,8 @@ const downloadPDF = async () => {
   element.style.direction = 'rtl';
   element.style.fontFamily = 'Vazirmatn, Vazir, system-ui, sans-serif';
   element.style.position = 'absolute';
-  element.style.left = '-9999px';  // فقط این خط اضافه شد (مخفی کردن)
-  element.style.top = '-9999px';   // فقط این خط اضافه شد (مخفی کردن)
+  element.style.left = '-9999px';
+  element.style.top = '-9999px';
   
   element.innerHTML = `
     <div style="text-align: center; border-bottom: 2px solid #c68642; padding-bottom: 15px; margin-bottom: 25px;">
@@ -283,25 +311,28 @@ const downloadPDF = async () => {
     document.body.removeChild(element);
   }
 };
-  const renderPage = () => {
-    switch(activePage) {
-      case "menu": 
-        return <MenuPage 
-          products={products}
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-          addToCart={addToCart}
-          handleProductClick={handleProductClick}
-        />;
-      case "home": return <HomePage />;
-      case "contact": return <ContactPage />;
-      case "about": return <AboutPage />;
-      default: return <MenuPage />;
-    }
-  };
+const renderPage = () => {
+  switch(activePage) {
+    case "menu": 
+      return <MenuPage 
+        key={products.length}  
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+        addToCart={addToCart}
+        handleProductClick={handleProductClick}
+      />;
+    case "home": return <HomePage />;
+    case "contact": return <ContactPage />;
+    case "about": return <AboutPage />;
+    default: return <MenuPage />;
+  }
+};
 
+    useEffect(() => {
+      document.title = 'Cafe Menu';
+    }, []);
   return (
     <div className={`app-container ${darkMode ? 'dark-mode' : 'light-mode'}`}>
       <FloatingCoffeeBeans />
@@ -390,7 +421,7 @@ const downloadPDF = async () => {
         <Timeline 
           orderStatus={orderStatus}
           progress={progress}
-          onClose={() => setShowTimeline(false)}  // این خط رو اضافه کن
+          onClose={() => setShowTimeline(false)}
         />
       )}
 
@@ -420,6 +451,38 @@ const downloadPDF = async () => {
   />
 )}
     </div>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AuthProvider>
+        <Routes>
+          {/* مسیرهای سایت اصلی */}
+          <Route path="/" element={<AppContent />} />
+          <Route path="/menu" element={<AppContent />} />
+          <Route path="/home" element={<AppContent />} />
+          <Route path="/contact" element={<AppContent />} />
+          <Route path="/about" element={<AppContent />} />
+          
+          {/* مسیر لاگین ادمین */}
+          <Route path="/admin-login" element={<Login />} />
+          
+          {/* مسیرهای پنل ادمین (محافظت شده) */}
+          <Route path="/admin" element={
+            <ProtectedRoute>
+              <AdminLayout />
+            </ProtectedRoute>
+          }>
+            <Route index element={<Dashboard />} />
+            <Route path="products" element={<Products />} />
+            <Route path="orders" element={<Orders />} />
+            <Route path="settings" element={<Settings />} />
+          </Route>
+        </Routes>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 

@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ProductCard from "../ProductCard";
+import { useProducts } from '../../hooks/useProducts';
 import "./MenuPage.css";
 
 export default function MenuPage({ 
-  products, 
   searchTerm, 
   setSearchTerm, 
   selectedCategory, 
@@ -11,6 +11,9 @@ export default function MenuPage({
   addToCart,
   handleProductClick 
 }) {
+  const { products } = useProducts();
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
   const categories = [
     { id: "all", name: "همه", icon: "📋" },
     { id: "hot", name: "قهوه گرم", icon: "☕" },
@@ -18,11 +21,16 @@ export default function MenuPage({
     { id: "dessert", name: "شیرینی", icon: "🍰" }
   ];
 
-  const filteredProducts = products.filter(product => {
-    const matchesCategory = selectedCategory === "all" || product.category === selectedCategory;
-    const matchesSearch = product.name.includes(searchTerm) || product.description.includes(searchTerm);
-    return matchesCategory && matchesSearch;
-  });
+  useEffect(() => {
+    const filtered = products.filter(product => {
+      const isActive = product.status === undefined || product.status === 'active';
+      const matchesCategory = selectedCategory === "all" || product.category === selectedCategory;
+      const matchesSearch = product.name.includes(searchTerm) || 
+                            (product.description && product.description.includes(searchTerm));
+      return isActive && matchesCategory && matchesSearch;
+    });
+    setFilteredProducts(filtered);
+  }, [products, selectedCategory, searchTerm]);
 
   return (
     <>

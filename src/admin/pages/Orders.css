@@ -1,0 +1,325 @@
+/* Orders.css */
+.orders-page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.orders-page-header {
+  margin-bottom: 0.5rem;
+}
+
+/* تب‌های فیلتر وضعیت */
+.orders-tabs {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.tab-btn {
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #5a3a1f;
+  background: rgba(255, 252, 247, 0.5);
+  border: 1px solid rgba(198, 134, 66, 0.2);
+  padding: 0.6rem 1.25rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dark-mode .tab-btn {
+  background: rgba(28, 15, 10, 0.3);
+  border-color: rgba(198, 134, 66, 0.15);
+  color: #c4b5ac;
+}
+
+.tab-btn:hover {
+  background: rgba(198, 134, 66, 0.08);
+  border-color: #c68642;
+}
+
+.tab-btn.active {
+  background: linear-gradient(135deg, #c68642, #8b5a2b);
+  color: #fff8ef;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(198, 134, 66, 0.25);
+}
+
+/* دکمه جزییات سفارش */
+.view-details-btn {
+  background: rgba(198, 134, 66, 0.08);
+  color: #c68642;
+  border: 1px solid rgba(198, 134, 66, 0.2);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.4rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s ease;
+}
+
+.view-details-btn:hover {
+  background: #c68642;
+  color: white;
+  transform: translateY(-1px);
+}
+
+/* فاکتور جزئیات مودال */
+.invoice-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(18, 9, 7, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.invoice-modal-content {
+  background: linear-gradient(145deg, #fffcf7, #f7efe4);
+  border-radius: 1.5rem;
+  width: 100%;
+  max-width: 580px;
+  box-shadow: 0 25px 50px -12px rgba(45, 26, 17, 0.3);
+  border: 1px solid rgba(198, 134, 66, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: background 0.3s ease;
+}
+
+.dark-mode .invoice-modal-content {
+  background: linear-gradient(145deg, #23120b, #150904);
+  border-color: rgba(198, 134, 66, 0.25);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+}
+
+.invoice-header {
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid rgba(198, 134, 66, 0.15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-invoice-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  color: #8b5a2b;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.dark-mode .close-invoice-btn {
+  color: #fffcf7;
+}
+
+.close-invoice-btn:hover {
+  color: #ef4444;
+}
+
+.invoice-body {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-height: 65vh;
+  overflow-y: auto;
+}
+
+.invoice-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  background: rgba(198, 134, 66, 0.05);
+  border-radius: 0.75rem;
+  padding: 1rem;
+}
+
+@media (max-width: 480px) {
+  .invoice-meta-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #5a3a1f;
+}
+
+.dark-mode .meta-item {
+  color: #c4b5ac;
+}
+
+.section-subtitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #3d2619;
+  margin-bottom: 0.75rem;
+}
+
+.dark-mode .section-subtitle {
+  color: #e2d3c7;
+}
+
+/* جدول اقلام داخل فاکتور */
+.invoice-items-table {
+  border: 1px solid rgba(198, 134, 66, 0.15);
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.invoice-table-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.2fr 1.5fr;
+  background: rgba(198, 134, 66, 0.08);
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #5a3a1f;
+  border-bottom: 1px solid rgba(198, 134, 66, 0.15);
+}
+
+.dark-mode .invoice-table-header {
+  background: rgba(198, 134, 66, 0.15);
+  color: #fff8ef;
+}
+
+.invoice-table-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.2fr 1.5fr;
+  padding: 0.85rem 1rem;
+  font-size: 0.88rem;
+  border-bottom: 1px solid rgba(198, 134, 66, 0.08);
+  color: #3d2619;
+}
+
+.dark-mode .invoice-table-row {
+  color: #e2d3c7;
+}
+
+.invoice-table-row:last-child {
+  border-bottom: none;
+}
+
+/* کادر مبلغ نهایی فاکتور */
+.invoice-total-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: rgba(198, 134, 66, 0.08);
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #5a3a1f;
+}
+
+.dark-mode .invoice-total-summary {
+  background: rgba(198, 134, 66, 0.15);
+  color: #fff8ef;
+}
+
+.total-amount {
+  font-size: 1.2rem;
+}
+
+/* کنترل تغییر وضعیت سفارشات */
+.status-selector-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+@media (max-width: 480px) {
+  .status-selector-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.status-select-btn {
+  border: 1px solid rgba(198, 134, 66, 0.2);
+  background: rgba(255, 255, 255, 0.5);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.7rem;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dark-mode .status-select-btn {
+  background: rgba(28, 15, 10, 0.3);
+  border-color: rgba(198, 134, 66, 0.15);
+  color: #cbd5e1;
+}
+
+.status-select-btn:hover {
+  transform: translateY(-1px);
+}
+
+.status-select-btn.preparing.active {
+  background: #f59e0b;
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.status-select-btn.completed.active {
+  background: #10b981;
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.status-select-btn.canceled.active {
+  background: #ef4444;
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+/* فوتر فاکتور */
+.invoice-footer {
+  padding: 1.25rem 2rem;
+  border-top: 1px solid rgba(198, 134, 66, 0.15);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.got-it-btn {
+  background: #c68642;
+  color: white;
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  padding: 0.6rem 2rem;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.got-it-btn:hover {
+  background: #8b5a2b;
+}

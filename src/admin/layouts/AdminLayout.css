@@ -1,0 +1,215 @@
+/* AdminLayout.css - RTL */
+
+.admin-layout-container {
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  background: #fff8ef;
+  transition: background 0.3s ease;
+}
+
+.dark-mode .admin-layout-container {
+  background:linear-gradient(135deg, rgb(105, 99, 97), rgb(45, 26, 17), rgb(118, 86, 66));;
+}
+
+.main-content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 100%;
+  max-height: 100vh;
+  overflow: hidden;
+  transition: padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* RTL: سایدبار در راست = چپ فیزیکی */
+@media (min-width: 768px) {
+  .main-content-wrapper.sidebar-expanded {
+    padding-right: 270px;  /* RTL: padding-right */
+    padding-left: 0;
+  }
+  
+  .main-content-wrapper.sidebar-collapsed {
+    padding-right: 72px;   /* RTL: padding-right */
+    padding-left: 0;
+  }
+}
+
+/* باقی استایل‌های هدر و محتوا... */
+.admin-header {
+  height: 64px;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(198, 134, 66, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  border-radius: 0;
+  flex-shrink: 0;
+  background: rgba(255, 248, 239, 0.8);
+  backdrop-filter: blur(20px);
+}
+
+.dark-mode .admin-header {
+  background: rgba(15, 10, 7, 0.9);
+  border-bottom-color: rgba(198, 134, 66, 0.15);
+}
+
+@media (max-width: 767px) {
+  .admin-header {
+    height: 56px;
+    padding: 0 1rem;
+  }
+}
+
+.header-physical-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  direction: rtl;
+  flex-shrink: 0;
+}
+
+.header-physical-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  direction: rtl;
+  flex-shrink: 0;
+}
+
+.header-page-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #5a3a1f;
+  margin: 0;
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .header-page-title {
+    font-size: 0.85rem;
+  }
+}
+
+.dark-mode .header-page-title {
+  color: #e8d5b7;
+}
+
+.hamburger-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid rgba(198, 134, 66, 0.25);
+  background: rgba(198, 134, 66, 0.08);
+  color: #8b5a2b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+}
+
+.dark-mode .hamburger-btn {
+  background: rgba(198, 134, 66, 0.15);
+  border-color: rgba(198, 134, 66, 0.2);
+  color: #e2d3c7;
+}
+
+.hamburger-btn:hover {
+  background: #c68642;
+  color: #fff8ef;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(198, 134, 66, 0.25);
+}
+
+.header-widget {
+  background: rgba(198, 134, 66, 0.06);
+  border: 1px solid rgba(198, 134, 66, 0.15);
+  border-radius: 9999px;
+  padding: 0.4rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #5a3a1f;
+}
+
+.dark-mode .header-widget {
+  background: rgba(198, 134, 66, 0.12);
+  border-color: rgba(198, 134, 66, 0.15);
+  color: #e2d3c7;
+}
+
+.time-text {
+  font-weight: 600;
+}
+
+.divider {
+  opacity: 0.3;
+}
+
+.header-action-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(198, 134, 66, 0.2);
+  background: rgba(255, 255, 255, 0.4);
+  color: #5a3a1f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+}
+
+.dark-mode .header-action-btn {
+  background: rgba(28, 15, 10, 0.4);
+  border-color: rgba(198, 134, 66, 0.15);
+  color: #f5f0eb;
+}
+
+.header-action-btn:hover {
+  background: rgba(198, 134, 66, 0.15);
+  color: #c68642;
+  transform: translateY(-1px);
+}
+
+.admin-page-content {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+  max-width: 100%;
+  min-height: 0;
+}
+
+@media (max-width: 767px) {
+  .admin-page-content {
+    padding: 1rem;
+  }
+}
+
+.admin-page-content::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.admin-page-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.admin-page-content::-webkit-scrollbar-thumb {
+  background: rgba(198, 134, 66, 0.3);
+  border-radius: 4px;
+}
+
+.admin-page-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(198, 134, 66, 0.5);
+}

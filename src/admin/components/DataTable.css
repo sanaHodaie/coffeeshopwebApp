@@ -1,0 +1,119 @@
+/* DataTable.css */
+.table-wrapper {
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px -10px rgba(45, 26, 17, 0.08);
+  border: 1px solid rgba(198, 134, 66, 0.15);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.table-header-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.search-input-wrapper {
+  flex: 1;
+  min-width: 240px;
+}
+
+.table-search-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(198, 134, 66, 0.25);
+  border-radius: 0.85rem;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.9rem;
+  color: #3d2619;
+  outline: none;
+  font-family: inherit;
+  transition: all 0.25s ease;
+}
+
+.dark-mode .table-search-input {
+  background: rgba(28, 15, 10, 0.4);
+  border-color: rgba(198, 134, 66, 0.2);
+  color: #f5f0eb;
+}
+
+.table-search-input:focus {
+  border-color: #c68642;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(198, 134, 66, 0.15);
+}
+
+.dark-mode .table-search-input:focus {
+  background: rgba(18, 9, 7, 0.75);
+  box-shadow: 0 0 0 3px rgba(198, 134, 66, 0.25);
+}
+
+.table-filter-wrapper {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.table-scroller {
+  overflow-x: auto;
+  border-radius: 0.75rem;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.custom-table th {
+  background: rgba(198, 134, 66, 0.08);
+  color: #5a3a1f;
+  padding: 1rem 1.25rem;
+  font-weight: 700;
+  border-bottom: 2px solid rgba(198, 134, 66, 0.15);
+}
+
+.dark-mode .custom-table th {
+  background: rgba(26, 15, 10, 0.9);
+  color: #c68642;
+  border-bottom: 2px solid rgba(198, 134, 66, 0.2);
+}
+
+.custom-table td {
+  padding: 1rem 1.25rem;
+  color: #4a3525;
+  border-bottom: 1px solid rgba(198, 134, 66, 0.1);
+}
+
+.dark-mode .custom-table td {
+  color: #e2d3c7;
+  border-bottom: 1px solid rgba(198, 134, 66, 0.08);
+}
+
+.table-row {
+  transition: background-color 0.2s ease;
+}
+
+.table-row:hover {
+  background-color: rgba(198, 134, 66, 0.05);
+}
+
+.dark-mode .table-row:hover {
+  background-color: rgba(198, 134, 66, 0.08);
+}
+
+.no-data-cell {
+  background: transparent;
+}
+
+.no-data-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+}

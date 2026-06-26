@@ -1,0 +1,260 @@
+/* Login.css */
+.login-page-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, #fff8ef 0%, #ecd9c3 100%);
+  position: relative;
+  overflow: hidden;
+  padding: 1.5rem;
+  transition: background 0.3s ease;
+}
+
+.dark-mode .login-page-container {
+  background:linear-gradient(135deg, rgb(105, 99, 97), rgb(45, 26, 17), rgb(118, 86, 66));;
+}
+
+/* سوییچر تم */
+.theme-toggle-btn {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(198, 134, 66, 0.25);
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle-btn:hover {
+  transform: scale(1.08) rotate(15deg);
+  background: rgba(198, 134, 66, 0.15);
+}
+
+/* دانه‌های شناور */
+.floating-elements-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.floating-bean {
+  opacity: 0.25;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+}
+
+.dark-mode .floating-bean {
+  opacity: 0.15;
+}
+
+/* کارت شیشه‌ای لاگین */
+.login-card {
+  width: 100%;
+  max-width: 440px;
+  border-radius: 2rem;
+  padding: 3rem 2.5rem;
+  z-index: 2;
+  box-shadow: 0 25px 50px -12px lab(65.16% 21.14 25.88 / 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.login-card-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo-badge {
+  background: linear-gradient(135deg, #c68642, #8b5a2b);
+  color: #fff8ef;
+  width: 72px;
+  height: 72px;
+  border-radius: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 25px rgba(198, 134, 66, 0.35);
+  margin-bottom: 0.5rem;
+}
+
+.login-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #3d2619;
+}
+
+.dark-mode .login-title {
+  color: #fff8ef;
+}
+
+.login-subtitle {
+  font-size: 0.88rem;
+  color: #6e5241;
+  line-height: 1.6;
+}
+
+.dark-mode .login-subtitle {
+  color: #c4b5ac;
+}
+
+/* فرم لاگین */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #5a3a1f;
+}
+
+.dark-mode .input-label {
+  color: #e2d3c7;
+}
+
+.input-field-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  right: 1rem;
+  color: #c68642;
+}
+
+.login-input {
+  width: 100%;
+  padding: 0.8rem 2.75rem 0.8rem 1rem;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(198, 134, 66, 0.3);
+  border-radius: 1rem;
+  font-size: 0.95rem;
+  color: #3d2619;
+  font-family: inherit;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.dark-mode .login-input {
+  background: lab(5.51% 5.09 4.25 / 0.45);
+  border: 1px solid rgba(198, 134, 66, 0.2);
+  color: #fff8ef;
+}
+
+.login-input:focus {
+  border-color: #c68642;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(198, 134, 66, 0.15);
+}
+
+.dark-mode .login-input:focus {
+  background: rgba(18, 9, 7, 0.7);
+  box-shadow: 0 0 0 3px rgba(198, 134, 66, 0.25);
+}
+
+.password-toggle-btn {
+  position: absolute;
+  left: 1rem;
+  background: transparent;
+  border: none;
+  color: #8b5a2b;
+  cursor: pointer;
+}
+
+.dark-mode .password-toggle-btn {
+  color: #c4b5ac;
+}
+
+/* دکمه ورود */
+.login-submit-btn {
+  background: linear-gradient(135deg, #c68642, #8b5a2b);
+  color: white;
+  border: none;
+  border-radius: 1rem;
+  padding: 0.9rem;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(198, 134, 66, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(198, 134, 66, 0.45);
+}
+
+.login-submit-btn:active {
+  transform: translateY(0);
+}
+
+.login-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* لودر اسپینر */
+.loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* پانویس کارت */
+.login-card-footer {
+  text-align: center;
+  border-top: 1px solid rgba(198, 134, 66, 0.15);
+  padding-top: 1.25rem;
+}
+
+.credentials-hint {
+  font-size: 0.78rem;
+  color: #8b5a2b;
+}
+
+.dark-mode .credentials-hint {
+  color: #c4b5ac;
+}
+
+.credentials-hint code {
+  background: rgba(198, 134, 66, 0.1);
+  padding: 0.15rem 0.35rem;
+  border-radius: 0.25rem;
+  font-family: monospace;
+}
