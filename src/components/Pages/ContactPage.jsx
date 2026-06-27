@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./ContactPage.css";
 
 export default function ContactPage() {
@@ -6,6 +6,45 @@ export default function ContactPage() {
   const [modalMessage, setModalMessage] = useState("");
   const [modalEmoji, setModalEmoji] = useState("");
   const [modalTitle, setModalTitle] = useState("");
+  
+  // ===== اضافه کردن state برای تنظیمات =====
+  const [settings, setSettings] = useState({
+    cafeName: 'کافه دنج سنا (Sena Cafe)',
+    address: 'تهران، خیابان ولیعصر، نرسیده به میدان ونک، پلاک ۱۲',
+    phone: '۰۲۱-۸۸۹۹۲۲۱۱',
+    email: 'info@senacafe.com',
+    workingHours: 'همه‌روزه از ساعت ۸:۰۰ صبح الی ۲۳:۰۰ شب',
+    instagram: 'sena_cafe_test'
+  });
+
+  // ===== لود تنظیمات از localStorage =====
+  useEffect(() => {
+    const savedConfig = localStorage.getItem('coffee_shop_config');
+    if (savedConfig) {
+      const parsed = JSON.parse(savedConfig);
+      setSettings(prev => ({
+        ...prev,
+        ...parsed
+      }));
+    }
+
+    // گوش دادن به تغییرات تنظیمات
+    const handleStorageChange = (e) => {
+      if (e.key === 'coffee_shop_config') {
+        const stored = localStorage.getItem('coffee_shop_config');
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          setSettings(prev => ({
+            ...prev,
+            ...parsed
+          }));
+        }
+      }
+    };
+    
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
 
   const showCustomModal = (title, message, emoji) => {
     setModalTitle(title);
@@ -17,9 +56,9 @@ export default function ContactPage() {
     }, 4000);
   };
 
-  // باز کردن نقشه (آدرس)
+  // باز کردن نقشه (آدرس - از settings استفاده کن)
   const handleAddressClick = () => {
-    const address = "تهران، خیابان ولیعصر، پلاک ۱۲۳";
+    const address = settings.address;
     const encodedAddress = encodeURIComponent(address);
     window.open(`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`, '_blank');
     showCustomModal(
@@ -29,9 +68,9 @@ export default function ContactPage() {
     );
   };
 
-  // باز کردن شماره تلفن
+  // باز کردن شماره تلفن (از settings استفاده کن)
   const handlePhoneClick = () => {
-    window.location.href = "tel:02112345678";
+    window.location.href = `tel:${settings.phone}`;
     showCustomModal(
       "📞 تماس تلفنی",
       "شماره گیری انجام شد.\nمشتاق شنیدن صدای گرم شما هستیم! ❤️",
@@ -39,9 +78,9 @@ export default function ContactPage() {
     );
   };
 
-  // باز کردن ایمیل
+  // باز کردن ایمیل (از settings استفاده کن)
   const handleEmailClick = () => {
-    const email = "info@cafe.com";
+    const email = settings.email;
     const subject = "سوال در مورد کافه قهوه";
     const body = "سلام،\n\nمن در مورد...";
     window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
@@ -52,11 +91,11 @@ export default function ContactPage() {
     );
   };
 
-  // نمایش پیام ساعات کاری
+  // نمایش پیام ساعات کاری (از settings استفاده کن)
   const handleHoursClick = () => {
     showCustomModal(
       "⏰ ساعات کاری",
-      "☕ هنوز هم منتظر قدم‌های گرم شما هستیم! ☕\n\nهر روز از صبح تا شب، با عشق قهوه می‌سازیم تا لحظات خوشی رو براتون رقم بزنیم.\n\n🕐 شنبه تا چهارشنبه: ۹ صبح تا ۱۰ شب\n🕐 پنجشنبه و جمعه: ۹ صبح تا ۱۲ شب\n\nدوستتون داریم و منتظرتون هستیم ❤️",
+      `☕ ${settings.cafeName} ☕\n\n${settings.workingHours}\n\nدوستتون داریم و منتظرتون هستیم ❤️`,
       "☕"
     );
   };
@@ -79,7 +118,7 @@ export default function ContactPage() {
             <span className="contact-icon">📍</span>
             <div>
               <h4>آدرس</h4>
-              <p>تهران، خیابان ولیعصر، پلاک ۱۲۳</p>
+              <p>{settings.address}</p>
               <span className="contact-hint">👆 کلیک کنید تا در نقشه باز شود</span>
             </div>
           </div>
@@ -89,7 +128,7 @@ export default function ContactPage() {
             <span className="contact-icon">📞</span>
             <div>
               <h4>تلفن</h4>
-              <p>۰۲۱-۱۲۳۴۵۶۷۸</p>
+              <p>{settings.phone}</p>
               <span className="contact-hint">📱 کلیک کنید تا شماره گیری شود</span>
             </div>
           </div>
@@ -99,7 +138,7 @@ export default function ContactPage() {
             <span className="contact-icon">✉️</span>
             <div>
               <h4>ایمیل</h4>
-              <p>info@cafe.com</p>
+              <p>{settings.email}</p>
               <span className="contact-hint">📧 کلیک کنید تا ایمیل ارسال شود</span>
             </div>
           </div>
@@ -109,8 +148,7 @@ export default function ContactPage() {
             <span className="contact-icon">⏰</span>
             <div>
               <h4>ساعات کاری</h4>
-              <p>شنبه تا چهارشنبه: ۹ صبح تا ۱۰ شب</p>
-              <p>پنجشنبه و جمعه: ۹ صبح تا ۱۲ شب</p>
+              <p>{settings.workingHours}</p>
             </div>
           </div>
         </div>
